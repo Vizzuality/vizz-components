@@ -14,6 +14,7 @@ class LayerSpecModel extends Backbone.Model {
 }
 
 LayerSpecModel.prototype.defaults = {
+  name: '', // String
   account: '', // String
   type: 'cartodb', // String
   sql: null, // String

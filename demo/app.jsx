@@ -9,6 +9,7 @@ import LayersSpec from '../components/Map/LayersSpecCollection';
 
 const layersData = [
   {
+    name: 'Border countries',
     account: 'simbiotica',
     type: 'cartodb',
     sql: 'select * from world_borders',

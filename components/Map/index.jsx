@@ -2,8 +2,8 @@
 
 import _ from 'underscore';
 import React from 'react';
-import ReactDom from 'react-dom';
 import MapView from './MapView';
+import Legend from './Legend';
 
 class Map extends React.Component {
 
@@ -25,6 +25,11 @@ class Map extends React.Component {
 
     // If layersSpec prop exists, so we will add them.
     this.toogleLayers();
+
+    // If layersSpec change remove or add layers
+    this.layersSpec.on('change', () => {
+      this.toogleLayers();
+    });
   }
 
   /**
@@ -34,7 +39,9 @@ class Map extends React.Component {
     if (this.layersSpec && this.layersSpec.models.length) {
       _.each(this.layersSpec.models, (layer) => {
         if (layer.attributes.active) {
-          layer.layerInstance.addLayer(this.mapView.map);
+          layer.layerInstance.createLayer((l) => {
+            this.mapView.addLayer(layer.attributes.name, l);
+          });
         } else {
           layer.layerInstance.removeLayer(this.mapView.map);
         }
@@ -55,8 +62,14 @@ class Map extends React.Component {
   }
 
   render() {
+    let legend = null;
+    if (this.props.legend) {
+      legend = (<Legend layersSpec={ this.layersSpec } />);
+    }
     return (
-      <div ref="Map" className="c-map"></div>
+      <div ref="Map" className="c-map">
+        { legend }
+      </div>
     );
   }
 
@@ -64,11 +77,13 @@ class Map extends React.Component {
 
 Map.propTypes = {
   layersSpec: React.PropTypes.object, // Backbone Collection
-  mapOptions: React.PropTypes.object
+  mapOptions: React.PropTypes.object,
+  legend: React.PropTypes.bool
 };
 
 Map.defaultProps = {
-  mapOptions: MapView.prototype.defaults
+  mapOptions: MapView.prototype.defaults,
+  legend: true
 };
 
 export default Map;
