@@ -1,7 +1,7 @@
 'use strict';
 
 import Backbone from 'backbone';
-import CartoDBLayer from './CartoDBLayer';
+import CartoDBLayer from './Layers/CartoDBLayer';
 
 class LayerSpecModel extends Backbone.Model {
 
