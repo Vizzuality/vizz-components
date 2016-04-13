@@ -27,6 +27,9 @@ class Map extends React.Component {
     this.toogleLayers();
   }
 
+  /**
+   * Use this method to check all layers to show or hide them
+   */
   toogleLayers() {
     if (this.layersSpec && this.layersSpec.models.length) {
       _.each(this.layersSpec.models, (layer) => {
