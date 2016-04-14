@@ -2,6 +2,7 @@
 
 import './style.css';
 import _ from 'underscore';
+import Backbone from 'backbone';
 import React from 'react';
 import LegendItem from './LegendItem';
 
@@ -9,21 +10,18 @@ class Legend extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      layersSpec: props.layersSpec
-    };
-    this.layersSpec = props.layersSpec;
   }
 
   updateLayersSpec(params) {
-    const layerSpec = this.layersSpec.find({ name: params.name });
+    const layerSpec = this.props.layersSpec.find({ name: params.name });
     if (layerSpec) {
       layerSpec.set({ active: params.active });
     }
+    this.props.onChange(this.props.layersSpec);
   }
 
   render() {
-    const legendItems = _.map(this.layersSpec.models, (layerSpec, i) => {
+    const legendItems = _.map(this.props.layersSpec.models, (layerSpec, i) => {
       return (
         <LegendItem
           key={ i }
@@ -42,5 +40,17 @@ class Legend extends React.Component {
   }
 
 }
+
+Legend.propTypes = {
+  layersSpec: React.PropTypes.oneOfType([
+    React.PropTypes.object,
+    React.PropTypes.instanceOf(Backbone.Collection)
+  ]),
+  onChange: React.PropTypes.func
+};
+
+Legend.defaultProps = {
+  onChange: function() {}
+};
 
 export default Legend;

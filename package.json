@@ -1,7 +1,7 @@
 {
-  "name": "js-components",
+  "name": "vizz-components",
   "version": "1.0.0",
-  "description": "",
+  "description": "A collection of components for React to make Vizzuality's project",
   "main": "webpack.config.babel.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --hot --progress --colors --inline --host 0.0.0.0",

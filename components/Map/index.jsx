@@ -4,61 +4,36 @@ import _ from 'underscore';
 import React from 'react';
 import MapView from './MapView';
 import Legend from './Legend';
+import LayersSpecCollection from './LayersSpecCollection';
 
 class Map extends React.Component {
 
   constructor(props) {
     super(props);
-    if (props.layersSpec && props.layersSpec.length) {
-      this.layersSpec = this.props.layersSpec;
+    // If layersData exists, we will instance a layersSpec collection
+    if (props.layersData) {
+      this.layersSpec = new LayersSpecCollection(props.layersData);
+      this.layersSpec.instanceLayers();
     }
   }
 
   /**
-   * When DOM exists load Leaflet and create map
+   * When DOM exists create map and add layers
    */
   componentDidMount() {
     this.mapView = new MapView({
       el: this.refs.Map,
-      options: this.props.mapOptions
+      options: this.props.mapOptions,
+      layersSpec: this.layersSpec
     });
-
-    // If layersSpec prop exists, so we will add them.
-    this.toogleLayers();
-
-    // If layersSpec change remove or add layers
-    this.layersSpec.on('change', () => {
-      this.toogleLayers();
-    });
-  }
-
-  /**
-   * Use this method to check all layers to show or hide them
-   */
-  toogleLayers() {
-    if (this.layersSpec && this.layersSpec.models.length) {
-      _.each(this.layersSpec.models, (layer) => {
-        if (layer.attributes.active) {
-          layer.layerInstance.createLayer((l) => {
-            this.mapView.addLayer(layer.attributes.name, l);
-          });
-        } else {
-          layer.layerInstance.removeLayer(this.mapView.map);
-        }
-      });
-    }
   }
 
   /**
    * Avoid render, this component doesn't use Virtual DOM
    * @return false
    */
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate() {
     return false;
-  }
-
-  updateLayer(layerInstance) {
-    layerInstance.addLayer(this.mapView.map);
   }
 
   render() {
@@ -76,7 +51,7 @@ class Map extends React.Component {
 }
 
 Map.propTypes = {
-  layersSpec: React.PropTypes.object, // Backbone Collection
+  layersData: React.PropTypes.array, // JSON array
   mapOptions: React.PropTypes.object,
   legend: React.PropTypes.bool
 };
