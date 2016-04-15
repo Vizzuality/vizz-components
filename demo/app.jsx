@@ -5,10 +5,10 @@ import './style.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Map from '../components/Map';
-import LayersSpec from '../components/Map/LayersSpecCollection';
 
 const layersData = [
   {
+    name: 'Border countries',
     account: 'simbiotica',
     type: 'cartodb',
     sql: 'select * from world_borders',
@@ -23,13 +23,6 @@ class App extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-    // Create layers collection
-    this.layers = new LayersSpec(layersData);
-    // Create layers instances, it depends on his type
-    this.layers.instanceLayers();
-  }
-
   render() {
     var mapOptions = {
       center: [40, -3],
@@ -39,7 +32,7 @@ class App extends React.Component {
       <div>
         <section>
           <h2>Map component</h2>
-          <Map ref="Map" mapOptions={ mapOptions } layersSpec={ this.layers } />
+          <Map ref="Map" mapOptions={ mapOptions } layersData={ layersData } />
         </section>
       </div>
     );

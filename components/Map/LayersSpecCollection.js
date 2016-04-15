@@ -3,7 +3,7 @@
 import _ from 'underscore';
 import Backbone from 'backbone';
 import LayerSpecModel from './LayerSpecModel';
-import CartoDBLayer from './CartoDBLayer';
+import CartoDBLayer from './Layers/CartoDBLayer';
 
 class LayersSpecCollection extends Backbone.Collection {
 

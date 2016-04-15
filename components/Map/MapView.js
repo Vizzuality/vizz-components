@@ -4,13 +4,22 @@ import _ from 'underscore';
 import Backbone from 'backbone';
 import L from 'leaflet';
 
+const defaultBasemap = {
+  url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+  options: {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  }
+};
+
 class MapView extends Backbone.View {
 
-  initialize(props) {
-    this._layers = {};
-    this.options = _.extend({}, this.defaults, props.options || {});
+  initialize(settings) {
+    this.layersSpec = settings.layersSpec;
+    this.options = _.extend({}, this.defaults, settings.options || {});
     this.createMap();
     this.setBasemap();
+    this.toggleLayers();
+    this.setListeners();
   }
 
   /**
@@ -26,33 +35,33 @@ class MapView extends Backbone.View {
    * @param {Object} basemapSpec http://leafletjs.com/reference.html#tilelayer
    */
   setBasemap(basemapSpec) {
-    if (!basemapSpec) {
-      basemapSpec = {
-        url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-        options: {
-          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        }
-      };
-    }
+    const currentBasemap = basemapSpec || defaultBasemap;
     if (this.basemap) {
       this.map.removeLayer(this.basemap);
     }
-    this.basemap = L.tileLayer(basemapSpec.url, basemapSpec.options);
+    this.basemap = L.tileLayer(currentBasemap.url, currentBasemap.options);
     this.basemap.addTo(this.map);
   }
 
   /**
-   * Remove and add layer by name
-   * @param {String} layerName
-   * @param {Object} layerSpec
+   * Use this method to check all layers to show or hide them
    */
-  addLayer(layerName, layerSpec) {
-    const layer = this._layers[layerName];
-    if (layer) {
-      this.map.removeLayer(layer);
+  toggleLayers() {
+    if (this.layersSpec && this.layersSpec.length) {
+      for (let layer of this.layersSpec.models) {
+        if (layer.attributes.active) {
+          layer.layerInstance.addLayer(this.map);
+        } else {
+          layer.layerInstance.removeLayer(this.map);
+        }
+      }
     }
-    this.map.addLayer(layerSpec);
-    this._layers[layerName] = layerSpec;
+  }
+
+  setListeners() {
+    if (this.layersSpec && this.layersSpec.length) {
+      this.listenTo(this.layersSpec, 'change', this.toggleLayers.bind(this));
+    }
   }
 
 }
