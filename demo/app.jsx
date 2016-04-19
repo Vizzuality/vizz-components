@@ -5,6 +5,7 @@ import './style.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Map from '../components/Map';
+import Router from '../components/Router';
 
 const layersData = [
   {
@@ -17,10 +18,29 @@ const layersData = [
   }
 ];
 
+/**
+ * Router definition
+ */
+class AppRouter extends Router {}
+// Overriding default routes
+AppRouter.prototype.routes = {
+  'map': function() {
+    console.info('you are on map');
+  }
+};
+const router = new AppRouter();
+
+/**
+ * App definition
+ */
 class App extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+
   }
 
   render() {
@@ -40,4 +60,6 @@ class App extends React.Component {
 
 }
 
+// Initializing app
 ReactDOM.render(<App />, document.getElementById('app'));
+router.start();
