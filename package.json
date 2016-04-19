@@ -7,8 +7,16 @@
     "start": "./node_modules/.bin/webpack-dev-server --hot --progress --colors --inline --host 0.0.0.0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vizzuality/vizz-components.git"
+  },
   "author": "David Inga <david.inga@vizzuality.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vizzuality/vizz-components/issues"
+  },
+  "homepage": "https://github.com/Vizzuality/vizz-components#readme",
   "devDependencies": {
     "babel-core": "^6.7.6",
     "babel-loader": "^6.2.4",
@@ -26,6 +34,7 @@
     "leaflet": "^0.7.7",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "urijs": "^1.17.1"
   }
 }
