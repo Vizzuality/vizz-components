@@ -1,6 +1,6 @@
 'use strict';
 
-import backbone from 'Backbone';
+import Backbone from 'backbone';
 
 class ParamsModel extends Backbone.Model {
 
