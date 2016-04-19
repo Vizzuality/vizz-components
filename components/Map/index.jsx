@@ -22,7 +22,7 @@ class Map extends React.Component {
    */
   componentDidMount() {
     this.mapView = new MapView({
-      el: this.refs.Map,
+      el: this.refs.MapElement,
       options: this.props.mapOptions,
       layersSpec: this.layersSpec
     });
@@ -32,7 +32,7 @@ class Map extends React.Component {
    * Avoid render, this component doesn't use Virtual DOM
    * @return false
    */
-  shouldComponentUpdate() {
+  shouldComponentUpdate(a, nextProps) {
     return false;
   }
 
@@ -42,10 +42,14 @@ class Map extends React.Component {
       legend = (<Legend layersSpec={ this.layersSpec } />);
     }
     return (
-      <div ref="Map" className="c-map">
+      <div ref="MapElement" className="c-map">
         { legend }
       </div>
     );
+  }
+
+  setView(center, zoom) {
+    this.mapView.map.setView(center, zoom || this.map.getZoom());
   }
 
 }

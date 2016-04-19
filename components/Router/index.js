@@ -4,20 +4,16 @@ import Backbone from 'backbone';
 import ParamsModel from './ParamsModel';
 import URI from 'urijs';
 
-const routes = {
-  '*routes': 'everyAction',
-};
-
 class Router extends Backbone.Router {
 
   initialize() {
     this.params = new ParamsModel();
   }
 
-  execute(callback, args, name) {
-    this.currentRoute = args[0];
-    if (args[1]) {
-      this.params.set(this.parseParams(args[1]));
+  execute(callback, args, currentRoute) {
+    this.currentRoute = currentRoute;
+    if (args[0]) {
+      this.params.set(this.parseParams(args[0]));
     }
     if (callback) {
       callback.apply(this, args);
@@ -62,7 +58,5 @@ class Router extends Backbone.Router {
   }
 
 }
-
-Router.prototype.routes = routes;
 
 export default Router;

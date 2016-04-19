@@ -24,6 +24,9 @@ const layersData = [
 class AppRouter extends Router {}
 // Overriding default routes
 AppRouter.prototype.routes = {
+  '': function() {
+    console.info('you are on welcome');
+  },
   'map': function() {
     console.info('you are on map');
   }
@@ -39,14 +42,31 @@ class App extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.setListeners();
+  }
 
+  setListeners() {
+    router.params.on('change', this.updateMap.bind(this));
+    this.refs.Map.mapView.map.on('moveend', this.updateRouter.bind(this));
+  }
+
+  updateRouter() {
+    const map = this.refs.Map.mapView.map;
+    const center = map.getCenter();
+    const params = { lat: center.lat, lng: center.lng, zoom: map.getZoom() };
+    router.update(params);
+  }
+
+  updateMap() {
+    const center = [router.params.get('lat'), router.params.get('lng')];
+    this.refs.Map.setView(center, router.params.get('zoom'));
   }
 
   render() {
     var mapOptions = {
-      center: [40, -3],
-      zoom: 5
+      center: [router.params.get('lat'), router.params.get('lng')],
+      zoom: router.params.get('zoom')
     };
     return (
       <div>
