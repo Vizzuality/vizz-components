@@ -1,7 +1,6 @@
 'use strict';
 
 import $ from 'jquery';
-import Backbone from 'backbone';
 
 /**
  * @example

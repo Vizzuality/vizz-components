@@ -2,7 +2,6 @@
 
 import _ from 'underscore';
 import Backbone from 'backbone';
-import L from 'leaflet';
 
 const defaultBasemap = {
   url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
