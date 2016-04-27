@@ -6,7 +6,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Map from '../components/Map';
 import Router from '../components/Router';
-import Timeline from '../components/Timeline';
 
 const torqueCSS = [
   'Map {',
