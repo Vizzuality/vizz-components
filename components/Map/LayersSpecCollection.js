@@ -1,22 +1,47 @@
 'use strict';
 
-import _ from 'underscore';
 import Backbone from 'backbone';
 import LayerSpecModel from './LayerSpecModel';
-import CartoDBLayer from './Layers/CartoDBLayer';
-import TorqueLayer from './Layers/TorqueLayer';
 
 class LayersSpecCollection extends Backbone.Collection {
 
-  instanceLayers() {
-    _.each(this.models, (model) => {
-      if (model.attributes.type === 'cartodb') {
-        model.layerInstance = new CartoDBLayer(model.attributes);
-      }
-      if (model.attributes.type === 'torque') {
-        model.layerInstance = new TorqueLayer(model.attributes);
-      }
-    });
+  initialize() {
+    this._layers = {}; // Layers instanced on map
+  }
+
+  setMap(map) {
+    this.subscriber = map;
+  }
+
+  addLayer(id) {
+    const layerSpec = this.get(id);
+    const layer = this.getLayer(id);
+    // Trying to not create a new instance every time
+    if (!layer && layerSpec && !layerSpec.instancedLayer) {
+      layerSpec.instanceLayer().createLayer((layer) => {
+        this.subscriber.addLayer(layer);
+        this._layers[id] = layer;
+      });
+    } else if (!layer && layerSpec && layerSpec.instancedLayer) {
+      this.subscriber.addLayer(layerSpec.instancedLayer.layer);
+      this._layers[id] = layerSpec.instancedLayer.layer;
+    }
+  }
+
+  removeLayer(id) {
+    const layer = this.getLayer(id);
+    if (layer) {
+      this.subscriber.removeLayer(layer);
+      this.clearLayer(id);
+    }
+  }
+
+  getLayer(id) {
+    return this._layers[id];
+  }
+
+  clearLayer(id) {
+    delete this._layers[id];
   }
 
 }

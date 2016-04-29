@@ -1,25 +1,28 @@
-'use strict';
-
 import Backbone from 'backbone';
 import CartoDBLayer from './Layers/CartoDBLayer';
+import TorqueLayer from './Layers/TorqueLayer';
+
+const layersClass = {
+  'cartodb': CartoDBLayer,
+  'torque': TorqueLayer
+};
 
 class LayerSpecModel extends Backbone.Model {
 
-  instanceLayer(data) {
-    if (this.attributes.type === 'cartodb') {
-      this.instanceLayer = new CartoDBLayer(this.attributes);
-    }
+  initialize() {
+    this.on('change:zIndex', () => {
+      console.log('change z-index');
+    });
+  }
+
+  instanceLayer() {
+    const LayerClass = layersClass[this.attributes.type];
+    this.instancedLayer = new LayerClass(this.attributes);
+    return this.instancedLayer;
   }
 
 }
 
-LayerSpecModel.prototype.defaults = {
-  name: '', // String
-  account: '', // String
-  type: 'cartodb', // String
-  sql: null, // String
-  cartocss: null, // String
-  active: true // Boolean
-};
+LayerSpecModel.prototype.idAttribute = 'slug';
 
 export default LayerSpecModel;

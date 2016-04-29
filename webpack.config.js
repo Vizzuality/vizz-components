@@ -26,6 +26,7 @@ const config = {
     loaders: [
       {test: /\.html$/, loader: 'file?name=[name].[ext]'},
       {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
+      {test: /\.json$/, loader: 'json-loader'},
       {test: /\.css$/, loader: 'style-loader!css-loader'}
     ]
   }

@@ -1,8 +1,8 @@
 'use strict';
 
 import Backbone from 'backbone';
-import ParamsModel from './ParamsModel';
 import URI from 'urijs';
+import ParamsModel from './ParamsModel';
 
 class Router extends Backbone.Router {
 
@@ -10,6 +10,13 @@ class Router extends Backbone.Router {
     this.params = new ParamsModel();
   }
 
+  /**
+   * Middleware for all routes
+   * http://backbonejs.org/#Router-execute
+   * @param  {Function} callback
+   * @param  {Object} args
+   * @param  {String} currentRoute
+   */
   execute(callback, args, currentRoute) {
     this.currentRoute = currentRoute;
     if (args[0]) {
@@ -20,6 +27,10 @@ class Router extends Backbone.Router {
     }
   }
 
+  /**
+   * Use this method to update URL from navigator
+   * @param  {Object} params
+   */
   update(params) {
     this.params.set(params, { trigger: false });
     const routeString = this.serializeParams(this.params.attributes);
@@ -32,7 +43,6 @@ class Router extends Backbone.Router {
    * @return {Object}
    */
   parseParams(queryString) {
-    // TODO: detect pushState
     return URI.parseQuery(`?${queryString}`);
   }
 
@@ -51,10 +61,10 @@ class Router extends Backbone.Router {
    */
   start(options) {
     let opts = options;
-    if (!options) {
+    if (!opts) {
       opts = { pushState: false };
     }
-    Backbone.history.start(options);
+    Backbone.history.start(opts);
   }
 
 }
