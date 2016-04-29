@@ -1,7 +1,7 @@
 'use strict';
 
-import webpack from 'webpack';
-import path from 'path';
+const webpack = require('webpack');
+const path = require('path');
 
 const config = {
 
@@ -26,10 +26,11 @@ const config = {
     loaders: [
       {test: /\.html$/, loader: 'file?name=[name].[ext]'},
       {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
-      { test: /\.css$/, loader: "style-loader!css-loader" }
+      {test: /\.json$/, loader: 'json-loader'},
+      {test: /\.css$/, loader: 'style-loader!css-loader'}
     ]
   }
 
 };
 
-export default config;
+module.exports = config;
