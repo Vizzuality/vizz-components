@@ -2,6 +2,7 @@
 
 import './style.css';
 
+import _ from 'underscore';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Map from '../components/Map';
@@ -45,34 +46,30 @@ class App extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.setListeners();
-  }
-
-  setListeners() {
-    // router.params.on('change', this.updateMap.bind(this));
-    // this.refs.Map.mapView.map.on('moveend', this.updateRouter.bind(this));
+  componentWillMount() {
+    router.start();
   }
 
   updateRouter() {
-    // const map = this.refs.Map.mapView.map;
-    // const center = map.getCenter();
-    // const params = { lat: center.lat, lng: center.lng, zoom: map.getZoom() };
-    // router.update(params);
-  }
-
-  updateMap() {
-    // const center = [router.params.get('lat'), router.params.get('lng')];
-    // this.refs.Map.setView(center, router.params.get('zoom'));
+    const params = this.refs.Map.state;
+    router.update(params);
   }
 
   render() {
+    // Getting params from router before render map
+    const center = [router.params.get('lat'), router.params.get('lng')];
+    const options = _.extend({}, mapOptions, {
+      center: center,
+      zoom: router.params.get('zoom')
+    });
     return (
       <div>
         <section className="l-map">
           <Map ref="Map"
-            mapOptions={ mapOptions }
-            layersData={ layersData } />
+            mapOptions={ options }
+            layersData={ layersData }
+            onLoad={ this.updateRouter.bind(this) }
+            onChange={ this.updateRouter.bind(this) } />
         </section>
       </div>
     );
@@ -82,4 +79,3 @@ class App extends React.Component {
 
 // Initializing app
 ReactDOM.render(<App />, document.getElementById('app'));
-router.start();

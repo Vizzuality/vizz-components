@@ -10,10 +10,11 @@ class TorqueLayer {
   }
 
   createLayer(callback) {
+    console.log(L.TorqueLayer.prototype);
     this.layer = new L.TorqueLayer({
       user: this.options.account,
       table: this.options.tablename,
-      sql: this.options.sql,
+      query: this.options.sql,
       cartocss: this.options.cartocss
     });
     this.layer.error((err) => {

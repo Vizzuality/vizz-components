@@ -15,7 +15,8 @@ class Map extends React.Component {
     }
     this.state = {
       zoom: props.mapOptions.zoom,
-      center: props.mapOptions.center
+      lat: props.mapOptions.center[0],
+      lng: props.mapOptions.center[1]
     };
   }
 
@@ -28,8 +29,22 @@ class Map extends React.Component {
     this.layersSpec.setMap(this.map);
     // Setting basemap
     this.setBasemap();
-    // Exposing click event
+    // Exposing some events
     this.map.on('click', this.props.onClick);
+    this.map.on('load', this.props.onLoad); // This doesn't work -.-
+    this.map.on('moveend', () => {
+      const center = this.map.getCenter();
+      const nextState = {
+        zoom: this.map.getZoom(),
+        lng: center.lng,
+        lat: center.lat
+      };
+      this.setState(nextState);
+      this.props.onChange(nextState);
+    });
+
+    // Hack -> because on "load" doesn't work -.-
+    setTimeout(() => this.map.fire('load'), 0);
   }
 
   /**
@@ -87,7 +102,7 @@ class Map extends React.Component {
    * Avoid render, this component doesn't use Virtual DOM
    * @return false
    */
-  shouldComponentUpdate(a, nextProps) {
+  shouldComponentUpdate() {
     return false;
   }
 
@@ -109,7 +124,9 @@ Map.propTypes = {
   layersData: React.PropTypes.array, // JSON array
   mapOptions: React.PropTypes.object, // http://leafletjs.com/reference.html#map-usage
   legend: React.PropTypes.bool,
-  onClick: React.PropTypes.func
+  onLoad: React.PropTypes.func,
+  onClick: React.PropTypes.func,
+  onChange: React.PropTypes.func
 };
 
 Map.defaultProps = {
@@ -125,7 +142,8 @@ Map.defaultProps = {
     }
   },
   legend: true,
-  onClick: function() {}
+  onClick: function() {},
+  onChange: function() {}
 };
 
 export default Map;

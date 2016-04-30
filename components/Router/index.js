@@ -32,7 +32,7 @@ class Router extends Backbone.Router {
    * @param  {Object} params
    */
   update(params) {
-    this.params.set(params, { trigger: false });
+    this.params.set(params, { validate: true, trigger: false });
     const routeString = this.serializeParams(this.params.attributes);
     this.navigate(`${this.currentRoute || ''}${routeString}`);
   }
