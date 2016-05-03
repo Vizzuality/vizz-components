@@ -18,11 +18,12 @@ class LayersSpecCollection extends Backbone.Collection {
     const layer = this.getLayer(id);
     // Trying to not create a new instance every time
     if (!layer && layerSpec && !layerSpec.instancedLayer) {
-      layerSpec.instanceLayer().createLayer((layer) => {
-        this.subscriber.addLayer(layer);
-        this._layers[id] = layer;
+      layerSpec.instanceLayer().createLayer((l) => {
+        this.subscriber.addLayer(l);
+        this._layers[id] = l;
       });
-    } else if (!layer && layerSpec && layerSpec.instancedLayer) {
+    } else if (!layer && layerSpec && layerSpec.instancedLayer &&
+      layerSpec.instancedLayer.layer) {
       this.subscriber.addLayer(layerSpec.instancedLayer.layer);
       this._layers[id] = layerSpec.instancedLayer.layer;
     }

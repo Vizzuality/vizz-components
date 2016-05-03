@@ -20,7 +20,8 @@ class Router extends Backbone.Router {
   execute(callback, args, currentRoute) {
     this.currentRoute = currentRoute;
     if (args[0]) {
-      this.params.set(this.parseParams(args[0]));
+      const params = this.params.parse(this.parseParams(args[0]));
+      this.params.set(params, { validate: true });
     }
     if (callback) {
       callback.apply(this, args);
@@ -32,7 +33,7 @@ class Router extends Backbone.Router {
    * @param  {Object} params
    */
   update(params) {
-    this.params.set(params, { trigger: false });
+    this.params.set(params, { validate: true, trigger: false });
     const routeString = this.serializeParams(this.params.attributes);
     this.navigate(`${this.currentRoute || ''}${routeString}`);
   }
