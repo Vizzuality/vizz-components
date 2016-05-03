@@ -10,7 +10,7 @@ import Router from '../components/Router';
 import layersData from './layerSpec.json';
 
 const mapOptions = {
-  center: [40, -3],
+  center: [40, -3], // [lat, lng]
   zoom: 3,
   basemapSpec: {
     url: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
@@ -44,10 +44,15 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   componentWillMount() {
     router.start();
+    this.setState(router.params.attributes);
+    router.on('route', () => {
+      this.setState(router.params.attributes);
+    });
   }
 
   updateRouter() {
@@ -57,10 +62,12 @@ class App extends React.Component {
 
   render() {
     // Getting params from router before render map
-    const center = [router.params.get('lat'), router.params.get('lng')];
+    // TODO: make better this
+    const center = this.state.lat && this.state.lng ?
+      [this.state.lat, this.state.lng] : null;
     const options = _.extend({}, mapOptions, {
-      center: center,
-      zoom: router.params.get('zoom')
+      center: center || mapOptions.center,
+      zoom: router.params.get('zoom') || mapOptions.zoom
     });
     return (
       <div>

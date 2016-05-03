@@ -20,7 +20,8 @@ class Router extends Backbone.Router {
   execute(callback, args, currentRoute) {
     this.currentRoute = currentRoute;
     if (args[0]) {
-      this.params.set(this.parseParams(args[0]));
+      const params = this.params.parse(this.parseParams(args[0]));
+      this.params.set(params, { validate: true });
     }
     if (callback) {
       callback.apply(this, args);

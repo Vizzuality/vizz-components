@@ -90,6 +90,19 @@ class Map extends React.Component {
   }
 
   /**
+   * Useful to update map
+   */
+  componentWillReceiveProps(nextProps) {
+    const nextState = {
+      lat: nextProps.mapOptions.center[0],
+      lng: nextProps.mapOptions.center[1],
+      zoom: nextProps.mapOptions.zoom
+    };
+    this.map.setView(nextProps.mapOptions.center, nextProps.mapOptions.zoom);
+    this.setState(nextState);
+  }
+
+  /**
    * When DOM exists create map
    */
   componentDidMount() {

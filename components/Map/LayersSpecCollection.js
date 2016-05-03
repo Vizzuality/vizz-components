@@ -22,7 +22,8 @@ class LayersSpecCollection extends Backbone.Collection {
         this.subscriber.addLayer(l);
         this._layers[id] = l;
       });
-    } else if (!layer && layerSpec && layerSpec.instancedLayer) {
+    } else if (!layer && layerSpec && layerSpec.instancedLayer &&
+      layerSpec.instancedLayer.layer) {
       this.subscriber.addLayer(layerSpec.instancedLayer.layer);
       this._layers[id] = layerSpec.instancedLayer.layer;
     }
