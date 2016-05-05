@@ -21,7 +21,7 @@ const config = {
 
   module: {
     loaders: [
-      // {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
+      {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
       {test: /\.json$/, loader: 'json-loader'},
       {test: /\.css$/, loader: 'style-loader!css-loader'}
     ]
@@ -30,7 +30,16 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        dead_code: true,
+        drop_debugger: true,
+        drop_console: true
+      },
+      comments: false
+    })
   ]
 
 };
