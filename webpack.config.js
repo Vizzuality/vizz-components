@@ -30,16 +30,7 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        dead_code: true,
-        drop_debugger: true,
-        drop_console: true
-      },
-      comments: false
-    })
+    new webpack.optimize.OccurrenceOrderPlugin()
   ]
 
 };
