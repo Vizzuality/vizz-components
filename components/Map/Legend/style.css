@@ -2,7 +2,7 @@
   position: absolute;
   bottom: 2rem;
   left: 2rem;
-  z-index: 1;
+  z-index: 1000;
 }
 .legend-component ul {
   margin: 0;

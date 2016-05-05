@@ -1,8 +1,10 @@
+'use strict';
+
 import Backbone from 'backbone';
 import CartoDBLayer from './Layers/CartoDBLayer';
 import TorqueLayer from './Layers/TorqueLayer';
 
-const layersClass = {
+const mapLayers = {
   'cartodb': CartoDBLayer,
   'torque': TorqueLayer
 };
@@ -16,8 +18,8 @@ class LayerSpecModel extends Backbone.Model {
   }
 
   instanceLayer() {
-    const LayerClass = layersClass[this.attributes.type];
-    this.instancedLayer = new LayerClass(this.attributes);
+    const MapLayer = mapLayers[this.attributes.type];
+    this.instancedLayer = new MapLayer(this.attributes);
     return this.instancedLayer;
   }
 
