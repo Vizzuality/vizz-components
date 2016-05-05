@@ -5,13 +5,14 @@ const path = require('path');
 
 const config = {
 
+  context: path.join(__dirname, 'components'),
+
   entry: [
     './index.js'
   ],
 
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'components.min.js'
+    filename: 'components.js'
   },
 
   resolve: {
@@ -20,11 +21,17 @@ const config = {
 
   module: {
     loaders: [
-      {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
+      // {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
       {test: /\.json$/, loader: 'json-loader'},
       {test: /\.css$/, loader: 'style-loader!css-loader'}
     ]
-  }
+  },
+
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
+  ]
 
 };
 

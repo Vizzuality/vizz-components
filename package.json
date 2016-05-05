@@ -2,7 +2,7 @@
   "name": "vizz-components",
   "version": "1.0.0",
   "description": "A collection of components for React to make Vizzuality's project",
-  "main": "index.js",
+  "main": "components.js",
   "scripts": {
     "build": "NODE_ENV=production && ./node_modules/.bin/webpack --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -36,5 +36,8 @@
     "react": "^15.0.1",
     "underscore": "^1.8.3",
     "urijs": "^1.17.1"
-  }
+  },
+  "files": [
+    "components.js"
+  ]
 }
