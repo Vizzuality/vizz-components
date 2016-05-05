@@ -15,10 +15,6 @@ import $ from 'jquery';
  */
 class CartoDBLayer {
 
-  constructor(props) {
-    this.options = props;
-  }
-
   createLayer(callback) {
     const account = this.options.account;
     const layersSpec = [{

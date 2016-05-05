@@ -5,10 +5,6 @@
  */
 class TorqueLayer {
 
-  constructor(props) {
-    this.options = props;
-  }
-
   createLayer(callback) {
     this.layer = L.marker([0, 0]);
     this.layer = new L.TorqueLayer({
