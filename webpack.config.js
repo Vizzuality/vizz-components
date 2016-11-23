@@ -1,5 +1,3 @@
-'use strict';
-
 const webpack = require('webpack');
 const path = require('path');
 
@@ -21,8 +19,8 @@ const config = {
 
   module: {
     loaders: [
-      {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
-      {test: /\.css$/, loader: 'style-loader!css-loader'}
+      { test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.css$/, loader: 'style-loader!css-loader' }
     ]
   },
 
