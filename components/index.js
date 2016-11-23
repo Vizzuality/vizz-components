@@ -1,6 +1,5 @@
 'use strict';
 
-import Map from './Map';
-import Router from './Router';
+import Globe from './Globe';
 
-export default {Map, Router};
+export default { Globe };
