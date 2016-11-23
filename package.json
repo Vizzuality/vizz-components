@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A collection of components to use in Vizzuality's project",
   "scripts": {
+    "serve": "./node_modules/.bin/webpack-dev-server --progress --colors",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors",
     "test": "./node_modules/.bin/eslint . && ./node_modules/.bin/jscs ./components"
   },
@@ -22,6 +23,7 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.26.0",
+    "html-webpack-plugin": "^2.24.1",
     "style-loader": "^0.13.1",
     "three": "^0.82.1",
     "webpack": "^1.13.3",

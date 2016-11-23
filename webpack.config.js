@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
 
@@ -25,11 +26,17 @@ const config = {
   },
 
   plugins: [
+    new HtmlWebpackPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({})
   ]
 
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  config.devtool = 'eval-source-map';
+}
 
 module.exports = config;
