@@ -3,9 +3,9 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
 
-.vizz-component-globe > canvas {
-  width: 100%;
-  height: 100%;
+  > canvas {
+    width: 100%;
+    height: 100%;
+  }
 }
