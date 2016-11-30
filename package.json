@@ -5,7 +5,9 @@
   "main": "components/index.js",
   "scripts": {
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors",
-    "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components"
+    "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -c .storybook -o docs"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "node-sass": "^3.13.0",
     "postcss-loader": "^1.1.1",
     "react": "^15.4.1",
+    "react-dom": "^15.4.1",
     "resolve-url-loader": "^1.6.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
@@ -42,6 +45,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.6.0",
-    "jscs": "^3.0.7"
+    "jscs": "^3.0.7",
+    "@kadira/storybook": "^2.21.0"
   }
 }
