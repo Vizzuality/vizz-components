@@ -29,7 +29,7 @@ class GlobeComponent extends React.Component {
     this.renderer.setSize(width, height);
 
     // Appending to DOM
-    this.refs.globeElement.appendChild(this.renderer.domElement);
+    this.el.appendChild(this.renderer.domElement);
 
     this.addControls();
     this.addLights();
@@ -82,7 +82,7 @@ class GlobeComponent extends React.Component {
 
   render() {
     return (
-      <div ref="globeElement" className="vizz-component-globe"></div>
+      <div ref={(node) => this.el = node} className="vizz-component-globe"></div>
     );
   }
 

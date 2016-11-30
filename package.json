@@ -2,7 +2,7 @@
   "name": "vizz-components",
   "version": "0.1.0",
   "description": "A collection of components to use in Vizzuality's project",
-  "main": "dist/index.js",
+  "main": "components/index.js",
   "scripts": {
     "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors",
     "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components"
