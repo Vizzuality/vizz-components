@@ -1,0 +1,11 @@
+.vizz-component-globe {
+  background-image: url("./images/galaxy.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  > canvas {
+    width: 100%;
+    height: 100%;
+  }
+}

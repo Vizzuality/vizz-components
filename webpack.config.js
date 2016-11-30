@@ -1,7 +1,6 @@
-'use strict';
-
 const webpack = require('webpack');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 
 const config = {
 
@@ -12,7 +11,8 @@ const config = {
   ],
 
   output: {
-    filename: 'components.js'
+    path: path.join(__dirname, 'dist'),
+    filename: 'index.js'
   },
 
   resolve: {
@@ -21,18 +21,48 @@ const config = {
 
   module: {
     loaders: [
-      {test: /\.(js|jsx)$/, loader: 'babel-loader', exclude: /node_modules/},
-      {test: /\.json$/, loader: 'json-loader'},
-      {test: /\.css$/, loader: 'style-loader!css-loader'}
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      }, {
+        test: /\.css$/,
+        loaders: ['style', 'css']
+      }, {
+        test: /\.(scss|sass)$/,
+        loaders: ['style', 'css', 'sass']
+      }, {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'url-loader?limit=5000'
+      }
     ]
   },
 
+  postcss() {
+    return [autoprefixer];
+  },
+
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({})
   ]
 
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  config.devtool = 'eval-source-map';
+} else {
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+      dead_code: true,
+      drop_debugger: true,
+      drop_console: true
+    },
+    comments: false
+  }));
+}
 
 module.exports = config;
