@@ -1,8 +1,3 @@
-// Animation
-$animation-time: .16s;
-// Ease
-$ease-in-out-sine: cubic-bezier(0.445, 0.050, 0.550, 0.950);
-
 .c-radio {
   label {
     display: block;
@@ -45,7 +40,7 @@ $ease-in-out-sine: cubic-bezier(0.445, 0.050, 0.550, 0.950);
         border-radius: 50%;
         display: block;
         transform: translate(-50%,-50%) scale(0);
-        transition: all $animation-time $ease-in-out-sine;
+        transition: all .16s cubic-bezier(0.445, 0.050, 0.550, 0.950);
       }
     }
   }
