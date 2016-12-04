@@ -3,6 +3,7 @@ import { storiesOf, action, linkTo } from '@kadira/storybook';
 import Globe from 'components/Globe';
 import Spinner from 'components/Spinner';
 import RadioGroup from 'components/Form/RadioGroup';
+import CheckboxGroup from 'components/Form/CheckboxGroup';
 
 storiesOf('UI Components', module)
   .add('Spinner', () => (
@@ -10,6 +11,25 @@ storiesOf('UI Components', module)
   ));
 
 storiesOf('Form Components', module)
+  .add('CheckboxGroup', () => {
+    const checkboxOptions = [
+      { value: 'optimistic', label: 'Optimistic' },
+      { value: 'pesimistic', label: 'Pesimistic' },
+      { value: 'business', label: 'Business as usual' }
+    ];
+    return (
+      <CheckboxGroup
+        items={checkboxOptions}
+        name="checkbox-name"
+        defaultValue={['optimistic']}
+        className=""
+        onChange={(selected) => {
+          console.info(selected);
+        }}
+      />
+    );
+  })
+
   .add('RadioGroup', () => {
     const radioOptions = [
       { value: 'optimistic', label: 'Optimistic' },
