@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 
+const rootPath = process.cwd();
+
 const config = {
 
   context: path.join(__dirname, 'components'),
@@ -16,6 +18,12 @@ const config = {
   },
 
   resolve: {
+    root: [
+      rootPath
+    ],
+    alias: {
+      components: 'components'
+    },
     extensions: ['', '.js', '.jsx']
   },
 
