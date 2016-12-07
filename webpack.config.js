@@ -6,14 +6,14 @@ const rootPath = process.cwd();
 
 const config = {
 
-  context: path.join(__dirname, 'components'),
+  context: path.join(rootPath, 'components'),
 
   entry: [
     './index.js'
   ],
 
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(rootPath, 'dist'),
     filename: 'index.js'
   },
 
@@ -21,9 +21,6 @@ const config = {
     root: [
       rootPath
     ],
-    alias: {
-      components: 'components'
-    },
     extensions: ['', '.js', '.jsx']
   },
 
@@ -35,10 +32,10 @@ const config = {
         exclude: /node_modules/
       }, {
         test: /\.css$/,
-        loaders: ['style', 'css']
+        loaders: ['style', 'css', 'postcss']
       }, {
         test: /\.(scss|sass)$/,
-        loaders: ['style', 'css', 'sass']
+        loaders: ['style', 'css', 'sass', 'postcss']
       }, {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'url-loader?limit=5000'

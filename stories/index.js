@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Globe from 'components/Globe';
-import Spinner from 'components/Spinner';
-import RadioGroup from 'components/Form/RadioGroup';
+import Globe from '../components/Globe';
+import Spinner from '../components/Spinner';
+import RadioGroup from '../components/Form/RadioGroup';
 
 storiesOf('UI Components', module)
   .add('Spinner', () => (
