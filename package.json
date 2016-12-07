@@ -4,8 +4,9 @@
   "description": "A collection of components to use in Vizzuality's project",
   "main": "components/index.js",
   "scripts": {
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors",
-    "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components"
+    "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components",
+    "storybook": "start-storybook -p 9000",
+    "build-storybook": "build-storybook -c .storybook -o docs"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "webpack": "^1.13.3"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
