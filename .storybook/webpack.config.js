@@ -8,5 +8,11 @@ module.exports = function(storybookBaseConfig, configType) {
     include: path.resolve(__dirname, '../')
   });
 
+  storybookBaseConfig.module.loaders.push({
+    test: /\.(png|jpg|gif|svg)$/,
+    loader: 'url-loader?limit=5000',
+    include: path.resolve(__dirname, '../')
+  });
+
   return storybookBaseConfig;
 };
