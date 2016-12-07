@@ -5,8 +5,8 @@
   "main": "components/index.js",
   "scripts": {
     "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components",
-    "storybook": "start-storybook -p 9000",
-    "build-storybook": "build-storybook -c .storybook -o docs"
+    "server": "start-storybook -p 9000",
+    "build-docs": "build-storybook -c .storybook -o docs"
   },
   "repository": {
     "type": "git",
