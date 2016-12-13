@@ -14,7 +14,10 @@ const config = {
 
   output: {
     path: path.join(rootPath, 'dist'),
-    filename: 'index.js'
+    filename: 'index.js',
+    library: 'vizz-components',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
 
   resolve: {
@@ -48,10 +51,10 @@ const config = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({})
+    // new webpack.optimize.OccurenceOrderPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoErrorsPlugin(),
+    // new webpack.DefinePlugin({})
   ]
 
 };
@@ -59,15 +62,15 @@ const config = {
 if (process.env.NODE_ENV !== 'production') {
   config.devtool = 'eval-source-map';
 } else {
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false,
-      dead_code: true,
-      drop_debugger: true,
-      drop_console: true
-    },
-    comments: false
-  }));
+  // config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+  //   compress: {
+  //     warnings: false,
+  //     dead_code: true,
+  //     drop_debugger: true,
+  //     drop_console: true
+  //   },
+  //   comments: false
+  // }));
 }
 
 module.exports = config;
