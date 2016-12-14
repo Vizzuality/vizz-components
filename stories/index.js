@@ -4,7 +4,7 @@ import Globe from '../components/Globe';
 import Modal from '../components/Modal';
 import Spinner from '../components/Spinner';
 import RadioGroup from '../components/Form/RadioGroup';
-import CheckboxGroup from 'components/Form/CheckboxGroup';
+import CheckboxGroup from '../components/Form/CheckboxGroup';
 
 
 storiesOf('UI Components', module)

@@ -2,12 +2,12 @@
   "name": "vizz-components",
   "version": "0.1.2",
   "description": "A collection of components to use in Vizzuality's project",
-  "main": "components/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components",
     "server": "start-storybook -p 9000",
-    "build-docs": "build-storybook -c .storybook -o docs",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors"
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
