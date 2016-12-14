@@ -1,6 +1,6 @@
 {
   "name": "vizz-components",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A collection of components to use in Vizzuality's project",
   "main": "dist/index.js",
   "scripts": {
