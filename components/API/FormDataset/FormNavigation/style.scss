@@ -15,10 +15,17 @@
 
   button {
     display: inline-block;
-    font-size: 20px;
-    padding: 8px 20px;
+    font-size: 18px;
+    padding: 16px 30px;
     background: black;
     color: white;
     border: none;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: poiner;
+
+    &:hover {
+      background: lighten(black, 5%);
+    }
   }
 }

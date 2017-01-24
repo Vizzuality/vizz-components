@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.scss';
 
-class StepNavigation extends React.Component {
+class FormNavigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,25 +24,26 @@ class StepNavigation extends React.Component {
   }
 
   render() {
+    const { step, stepLength, submitting } = this.props;
     return (
       <ul className="c-field-buttons">
-        {this.props.step !== 1 &&
+        {step !== 1 &&
           <li>
             <button type="button" name="commit" onClick={this.onBack}>
               Back
             </button>
           </li>
         }
-        {this.props.step !== this.props.stepLength &&
+        {step !== stepLength &&
           <li>
             <button type="submit" name="commit">
               Next
             </button>
           </li>
         }
-        {this.props.step === this.props.stepLength &&
+        {step === stepLength &&
           <li>
-            <button type="submit" name="commit">
+            <button type="submit" name="commit" disabled={submitting}>
               Submit
             </button>
           </li>
@@ -52,10 +53,11 @@ class StepNavigation extends React.Component {
   }
 }
 
-StepNavigation.propTypes = {
+FormNavigation.propTypes = {
   step: React.PropTypes.number,
   stepLength: React.PropTypes.number,
-  onBack: React.PropTypes.func
+  onBack: React.PropTypes.func,
+  submitting: React.PropTypes.bool
 };
 
-export default StepNavigation;
+export default FormNavigation;

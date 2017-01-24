@@ -1,38 +1,19 @@
 import React from 'react';
+import omit from 'lodash/omit';
+
 import './style.scss';
+
+
+import { STATE_DEFAULT, STATE_FILLED } from './constants';
 
 import Step1 from './Steps/step-1';
 import Step2 from './Steps/step-2';
-import StepNavigation from './StepNavigation';
+import FormNavigation from './FormNavigation';
 
 class FormDataset extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      step: 1,
-      stepLength: 2,
-      form: {
-        // STEP 1
-        name: '',
-        subtitle: '',
-        application: [props.application],
-        topics: [],
-        tags: [],
-        provider: '',
-        connectorProvider: '',
-        connectorType: '',
-        connectorUrlHint: '',
-
-        // STEP 2
-        connectorUrl: '',
-        legend: {
-          lat: null,
-          long: null,
-          date: [],
-          country: []
-        }
-      }
-    };
+    this.state = STATE_FILLED;
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -53,8 +34,36 @@ class FormDataset extends React.Component {
     setTimeout(() => {
       const valid = this.step.isValid();
       if (valid) {
-        if (this.state.step === this.state.stepLength) {
-          console.info(this.state);
+        if (this.state.step === this.state.stepLength && !this.state.submitting) {
+          // Start the submitting
+          this.setState({ submitting: true });
+
+          // Send the request
+          const xmlhttp = new XMLHttpRequest();
+          xmlhttp.open('POST', 'http://api.resourcewatch.org/dataset');
+          xmlhttp.setRequestHeader('Content-Type', 'application/json');
+          xmlhttp.setRequestHeader('Authorization', this.state.form.authorization);
+          xmlhttp.send(JSON.stringify({
+            // Remove unnecesary atributtes to prevent unprocesable entities error
+            dataset: omit(this.state.form, ['connectorUrlHint', 'authorization'])
+          }));
+
+          xmlhttp.onreadystatechange = () => {
+            if (xmlhttp.readyState === 4) {
+              if (xmlhttp.status === 200 || xmlhttp.status === 201) {
+                const response = JSON.parse(xmlhttp.responseText);
+                const successMessage = `The dataset "${response.data.id}" - "${response.data.attributes.name}" has been uploaded correctly`;
+                console.info(response);
+                console.info(successMessage);
+                alert(successMessage);
+
+                // Stop the submitting
+                this.setState({ submitting: false });
+              } else {
+                console.info('Error');
+              }
+            }
+          };
         } else {
           this.setState({
             step: this.state.step + 1
@@ -92,9 +101,10 @@ class FormDataset extends React.Component {
           />
         }
 
-        <StepNavigation
+        <FormNavigation
           step={this.state.step}
           stepLength={this.state.stepLength}
+          submitting={this.state.submitting}
           onBack={step => this.onBack(step)}
         />
       </form>

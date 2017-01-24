@@ -56,3 +56,58 @@ export const PROVIDER_DICTIONARY = {
     connectorUrlHint: 'Example: https://wri-01.carto.com/api/v2/sql?q=SELECT%20*%20FROM%20combined01_prepared%20where%20impactparameter=%27Food Demand%27 ."ftjson" param is required in the url'
   }
 };
+
+export const STATE_DEFAULT = {
+  step: 1,
+  stepLength: 2,
+  form: {
+    authorization: '',
+    // STEP 1
+    name: '',
+    subtitle: '',
+    application: ['aqueduct'],
+    topics: [],
+    tags: [],
+    provider: '',
+    connectorProvider: '',
+    connectorType: '',
+    connectorUrlHint: '',
+
+    // STEP 2
+    connectorUrl: '',
+    legend: {
+      lat: null,
+      long: null,
+      date: [],
+      country: []
+    }
+  }
+};
+
+export const STATE_FILLED = {
+  step: 1,
+  stepLength: 2,
+  submitting: false,
+  form: {
+    authorization: '',
+    // STEP 1
+    name: 'Test - name dataset',
+    subtitle: 'Test - subtitle dataset',
+    application: ['aqueduct'],
+    topics: ['forests'],
+    tags: ['tag-1', 'tag-2'],
+    provider: 'cartodb',
+    connectorProvider: 'cartodb',
+    connectorType: 'rest',
+    connectorUrlHint: 'Example: https://wri-01.carto.com/api/v2/sql?q=SELECT%20*%20FROM%20combined01_prepared%20where%20impactparameter=%27Food Demand%27 ."ftjson" param is required in the url',
+
+    // STEP 2
+    connectorUrl: 'https://wri-01.carto.com/api/v2/sql?q=SELECT%20*%20FROM%20combined01_prepared%20where%20impactparameter=%27Food Demand%27',
+    legend: {
+      lat: null,
+      long: null,
+      date: [],
+      country: []
+    }
+  }
+};

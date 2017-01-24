@@ -14,7 +14,7 @@ class Validator {
 
       url: {
         regex: /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/,
-        message: 'The field should be an url'
+        message: 'The field should be an url: http://example.com'
       }
     };
   }

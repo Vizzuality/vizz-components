@@ -22,6 +22,19 @@ class Step1 extends Step {
       <fieldset className="c-field-container">
         <Input
           ref={(c) => { if (c) this.children.push(c); }}
+          onChange={value => this.props.onChange({ authorization: value })}
+          validations={['required']}
+          properties={{
+            name: 'authorization',
+            label: 'Authorization token',
+            type: 'text',
+            required: true,
+            default: this.state.form.authorization
+          }}
+        />
+
+        <Input
+          ref={(c) => { if (c) this.children.push(c); }}
           onChange={value => this.props.onChange({ name: value })}
           validations={['required']}
           properties={{
