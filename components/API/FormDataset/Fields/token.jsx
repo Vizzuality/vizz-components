@@ -37,10 +37,9 @@ class Token extends Field {
     st = st.replace(/[\u00D2-\u00D6]/ig, 'o');
     st = st.replace(/[\u00D9-\u00DC]/ig, 'u');
     st = st.replace(/[\u00D1]/ig, 'n');
-    st = st.replace(/[^a-z0-9 ]+/gi, '');
     st = st.trim().replace(/ /g, '-');
-    st = st.replace(/[\-]{2}/g, '');
-    return (st.replace(/[^a-z\- ]*/gi, ''));
+    st = st.replace(/[^\w\s-]/g, '');
+    return st;
   }
 
   /**

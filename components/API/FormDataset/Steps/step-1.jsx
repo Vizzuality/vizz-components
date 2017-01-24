@@ -13,6 +13,7 @@ class Step1 extends Step {
     super(props);
 
     this.state = {
+      dataset: props.dataset,
       form: props.form
     };
   }
@@ -29,7 +30,7 @@ class Step1 extends Step {
             label: 'Authorization token',
             type: 'text',
             required: true,
-            default: this.state.form.authorization
+            default: this.state.form.authorization || ''
           }}
         />
 
@@ -96,6 +97,7 @@ class Step1 extends Step {
             name: 'provider',
             label: 'Provider',
             default: this.state.form.provider,
+            disabled: !!this.state.dataset,
             required: true
           }}
         />
@@ -105,6 +107,7 @@ class Step1 extends Step {
 }
 
 Step1.propTypes = {
+  dataset: React.PropTypes.string,
   form: React.PropTypes.object,
   onChange: React.PropTypes.func
 };

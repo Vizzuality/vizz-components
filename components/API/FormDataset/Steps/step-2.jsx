@@ -112,6 +112,7 @@ class Step2 extends Step {
 }
 
 Step2.propTypes = {
+  dataset: React.PropTypes.string,
   form: React.PropTypes.object,
   onChange: React.PropTypes.func
 };
