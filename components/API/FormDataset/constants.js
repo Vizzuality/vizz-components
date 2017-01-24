@@ -1,21 +1,21 @@
 export const TOPICS = [
-  { text: 'Cities', value: 'cities' },
-  { text: 'Climate', value: 'climate' },
-  { text: 'Energy', value: 'energy' },
-  { text: 'Forests', value: 'forests' },
-  { text: 'Food', value: 'food' },
-  { text: 'Land classification', value: 'land_classification' },
-  { text: 'Society', value: 'society' },
-  { text: 'Supply chain', value: 'supply_chain' },
-  { text: 'Water', value: 'water' }
+  { label: 'Cities', value: 'cities' },
+  { label: 'Climate', value: 'climate' },
+  { label: 'Energy', value: 'energy' },
+  { label: 'Forests', value: 'forests' },
+  { label: 'Food', value: 'food' },
+  { label: 'Land classification', value: 'land_classification' },
+  { label: 'Society', value: 'society' },
+  { label: 'Supply chain', value: 'supply_chain' },
+  { label: 'Water', value: 'water' }
 ];
 
 export const PROVIDERS = [
-  { text: 'Carto', value: 'cartodb' },
-  { text: 'ArcGIS', value: 'arcgis' },
-  { text: 'WMS', value: 'wms' },
-  { text: 'CSV', value: 'csv' },
-  { text: 'Google Earth Engine', value: 'gee' }
+  { label: 'Carto', value: 'cartodb' },
+  { label: 'ArcGIS', value: 'arcgis' },
+  { label: 'WMS', value: 'wms' },
+  { label: 'CSV', value: 'csv' },
+  { label: 'Google Earth Engine', value: 'gee' }
 ];
 
 export const PROVIDER_DICTIONARY = {

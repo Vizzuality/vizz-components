@@ -5,7 +5,7 @@ import { TOPICS, PROVIDERS } from '../constants';
 
 import Step from './step';
 import Input from '../Fields/input';
-import Select from '../Fields/select';
+import SelectInput from '../Fields/select';
 
 class Step1 extends Step {
   constructor(props) {
@@ -43,7 +43,7 @@ class Step1 extends Step {
           }}
         />
 
-        <Select
+        <SelectInput
           ref={(c) => { if (c) this.children.push(c); }}
           onChange={value => this.props.onChange({ topics: [value] })}
           validations={['required']}
@@ -72,7 +72,7 @@ class Step1 extends Step {
           }}
         />
 
-        <Select
+        <SelectInput
           ref={(c) => { if (c) this.children.push(c); }}
           onChange={value => this.props.onChange(this.providerDictionary[value])}
           validations={['required']}

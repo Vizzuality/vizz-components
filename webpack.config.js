@@ -32,7 +32,7 @@ const config = {
         exclude: /node_modules/
       }, {
         test: /\.css$/,
-        loaders: ['style', 'css', 'postcss']
+        loader: 'style!css!'
       }, {
         test: /\.(scss|sass)$/,
         loaders: ['style', 'css', 'sass', 'postcss']

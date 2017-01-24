@@ -1,27 +1,7 @@
 import React from 'react';
-import './style.scss';
+import Field from './field';
 
-import Validator from '../validator';
-
-class Input extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: this.props.properties.default || '',
-      valid: null,
-      error: []
-    };
-
-    // VALIDATOR
-    this.validator = new Validator();
-
-    // BINDINGS
-    this.triggerChange = this.triggerChange.bind(this);
-    this.triggerValidate = this.triggerValidate.bind(this);
-  }
-
+class Input extends Field {
   /**
    * UI EVENTS
    * - triggerChange
@@ -33,41 +13,6 @@ class Input extends React.Component {
       // Publish the new value to the form
       if (this.props.onChange) this.props.onChange(this.state.value);
     });
-  }
-
-  /**
-   * VALIDATIONS
-   * - triggerValidate (value)
-  */
-  triggerValidate() {
-    const { validations } = this.props;
-    const { value } = this.state;
-
-    // Check if a value is present
-    const isValuePresent = (Array.isArray(value)) ? value.length > 0 : value;
-
-    // Check if it has validations &&
-    // if a value is defined or if required validation is present
-    if (validations && (isValuePresent || validations.indexOf('required') !== -1)) {
-      // VALIDATE
-      const validateArr = this.validator.validate(validations, value);
-      const valid = validateArr.every(element => element.valid);
-      const error = (!valid) ? validateArr.map(element => element.error) : [];
-
-      this.setState({
-        valid,
-        error
-      });
-    } else {
-      this.setState({
-        valid: (isValuePresent) ? true : null,
-        error: []
-      });
-    }
-  }
-
-  isValid() {
-    return this.state.valid;
   }
 
   render() {
