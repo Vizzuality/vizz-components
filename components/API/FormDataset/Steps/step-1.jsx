@@ -6,6 +6,7 @@ import { TOPICS, PROVIDERS } from '../constants';
 import Step from './step';
 import Input from '../Fields/input';
 import SelectInput from '../Fields/select';
+import Token from '../Fields/token';
 
 class Step1 extends Step {
   constructor(props) {
@@ -57,7 +58,7 @@ class Step1 extends Step {
           }}
         />
 
-        <Input
+        <Token
           ref={(c) => { if (c) this.children.push(c); }}
           onChange={value => this.props.onChange({ tags: value })}
           validations={['required']}
