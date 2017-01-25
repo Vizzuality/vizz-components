@@ -102,6 +102,13 @@ class FormDataset extends React.Component {
                 console.info(response);
                 console.info(successMessage);
                 alert(successMessage);
+
+                // Go back to first step and set the dataset
+                // This will trigger the PATCH function
+                this.setState({
+                  step: 1,
+                  dataset: response.data.id
+                });
               } else {
                 console.info('Error');
               }
