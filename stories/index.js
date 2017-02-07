@@ -6,8 +6,8 @@ import Spinner from '../components/Spinner';
 import RadioGroup from '../components/Form/RadioGroup';
 import CheckboxGroup from '../components/Form/CheckboxGroup';
 import SvgIcon from '../components/SvgIcon';
-import FormDataset from '../components/API/FormDataset';
-import DatasetsList from '../components/API/DatasetsList';
+import DatasetForm from '../components/API/DatasetForm';
+import DatasetList from '../components/API/DatasetList';
 
 
 storiesOf('UI Components', module)
@@ -89,15 +89,15 @@ storiesOf('Visualisations', module)
 
 storiesOf('API modules', module)
   .add('Dataset Form', () => (
-    <FormDataset
+    <DatasetForm
       api="https://api.resourcewatch.org"
       application={['rw']}
       authorization=""
       // dataset="f3d6d6c1-3b3b-4dfc-a2a0-dcf38d258ae9"
     />
   ))
-  .add('Datasets List', () => (
-    <DatasetsList
+  .add('Dataset List', () => (
+    <DatasetList
       api="https://api.resourcewatch.org"
       application={['rw']}
       url="/dataset"
