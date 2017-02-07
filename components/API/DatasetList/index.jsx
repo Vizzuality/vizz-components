@@ -29,7 +29,7 @@ class DatasetsList extends React.Component {
               return (
                 <li key={i} className="item">
                   {dataset.attributes ? dataset.attributes.name : dataset.msg }
-                  { dataset.id && <a href={`${url}/${dataset.id}`} className="btn-edit">Edit</a> }
+                  { dataset.id && <a href={`${url}?id=${dataset.id}`} className="btn-edit">Edit</a> }
                 </li>
               );
             }) :
