@@ -13,7 +13,7 @@ const config = {
   ],
 
   output: {
-    library: ['FormDataset'],
+    library: ['VizzComponents'],
     path: path.join(rootPath, 'dist'),
     filename: 'index.js'
   },
