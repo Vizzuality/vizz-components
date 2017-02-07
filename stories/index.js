@@ -7,6 +7,7 @@ import RadioGroup from '../components/Form/RadioGroup';
 import CheckboxGroup from '../components/Form/CheckboxGroup';
 import SvgIcon from '../components/SvgIcon';
 import FormDataset from '../components/API/FormDataset';
+import DatasetsList from '../components/API/DatasetsList';
 
 
 storiesOf('UI Components', module)
@@ -92,5 +93,12 @@ storiesOf('API modules', module)
       application={['aqueduct']}
       authorization=""
       // dataset="f3d6d6c1-3b3b-4dfc-a2a0-dcf38d258ae9"
+    />
+  ))
+  .add('Datasets List', () => (
+    <DatasetsList
+      application={['rw']}
+      url="/dataset"
+      api="https://api.resourcewatch.org"
     />
   ));
