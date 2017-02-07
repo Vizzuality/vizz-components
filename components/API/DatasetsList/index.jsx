@@ -7,15 +7,18 @@ class DatasetsList extends React.Component {
     super(props);
 
     this.state = {
-      datasets: []
+      datasets: [],
+      message: 'Loading...'
     };
   }
 
-  render() {
-    const { applications } = this.props;
-    let { url } = this.props;
+  componentWillMount() {
+    const { application } = this.props;
+    this.getDatasets(application);
+  }
 
-    this.getDatasets(applications.join(','));
+  render() {
+    const { url } = this.props;
 
     return (
       <div className="c-datasets-list">
@@ -25,12 +28,12 @@ class DatasetsList extends React.Component {
             this.state.datasets.map((dataset, i) => {
               return (
                 <li key={i} className="item">
-                  {dataset.attributes.name}
-                  <a href={`${url}/${dataset.id}`} className="btn-edit">Edit</a>
+                  {dataset.attributes ? dataset.attributes.name : dataset.msg }
+                  { dataset.id && <a href={`${url}/${dataset.id}`} className="btn-edit">Edit</a> }
                 </li>
               );
             }) :
-            <li className="item">No datasets</li>
+            <li className="item">{this.state.message}</li>
           }
         </ul>
       </div>
@@ -38,24 +41,28 @@ class DatasetsList extends React.Component {
   }
 
   getDatasets(apps) {
-    fetch(new Request(`https://api.resourcewatch.org/dataset?app=${apps}&page[size]=${Date.now() / 100000}`))
+    const appsStr = apps.join(',');
+
+    fetch(new Request(`https://api.resourcewatch.org/dataset?app=${appsStr}&page[size]=${Date.now() / 100000}`))
     .then((response) => {
       if (response.ok) return response.json();
-      this.setState({ datasets: [] });
+      this.setState({ message: 'Error loading datasets', datasets: [] });
       throw new Error(response.statusText);
     })
     .then((response) => {
-      this.setState({ datasets: response.data });
+      const message = !response.data.length ? 'No datasets' : '';
+      this.setState({ message, datasets: response.data });
     })
     .catch((err) => {
-      this.setState({ datasets: [] });
+      this.setState({ message: 'Error loading datasets', datasets: [] });
     });
   }
 
 }
 
 DatasetsList.propTypes = {
-  applications: React.PropTypes.array.isRequired
+  application: React.PropTypes.array.isRequired,
+  url: React.PropTypes.string.isRequired,
 };
 
 export default DatasetsList;

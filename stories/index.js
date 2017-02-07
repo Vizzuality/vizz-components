@@ -96,7 +96,7 @@ storiesOf('API modules', module)
   ))
   .add('Datasets List', () => (
     <DatasetsList
-      applications={['rw']}
+      application={['rw']}
       url="/dataset"
       api="https://api.resourcewatch.org"
     />
