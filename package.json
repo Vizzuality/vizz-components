@@ -6,7 +6,8 @@
   "scripts": {
     "test": "./node_modules/.bin/eslint ./components && ./node_modules/.bin/jscs ./components",
     "server": "start-storybook -p 9000",
-    "build-docs": "build-storybook -c .storybook -o docs"
+    "build-docs": "build-storybook -c .storybook -o docs",
+    "build": "webpack ."
   },
   "repository": {
     "type": "git",

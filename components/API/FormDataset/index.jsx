@@ -16,7 +16,8 @@ class FormDataset extends React.Component {
     const newState = Object.assign({}, STATE_DEFAULT, {
       dataset: props.dataset,
       form: Object.assign({}, STATE_DEFAULT.form, {
-        application: props.application
+        application: props.application,
+        authorization: props.authorization
       })
     });
 
@@ -138,8 +139,8 @@ class FormDataset extends React.Component {
     const newForm = {};
 
     form.forEach((f) => {
-      if (params[f]) {
-        newForm[f] = params[f];
+      if (params[f] || this.state.form[f]) {
+        newForm[f] = params[f] || this.state.form[f];
       }
     });
 
@@ -183,6 +184,7 @@ class FormDataset extends React.Component {
 
 FormDataset.propTypes = {
   application: React.PropTypes.array,
+  authorization: React.PropTypes.string,
   dataset: React.PropTypes.string
 };
 

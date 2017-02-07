@@ -13,8 +13,13 @@ const config = {
   ],
 
   output: {
+    library: ['FormDataset'],
     path: path.join(rootPath, 'dist'),
     filename: 'index.js'
+  },
+
+  externals: {
+    'react': 'React'
   },
 
   resolve: {

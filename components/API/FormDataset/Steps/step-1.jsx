@@ -21,18 +21,20 @@ class Step1 extends Step {
   render() {
     return (
       <fieldset className="c-field-container">
-        <Input
-          ref={(c) => { if (c) this.children.push(c); }}
-          onChange={value => this.props.onChange({ authorization: value })}
-          validations={['required']}
-          properties={{
-            name: 'authorization',
-            label: 'Authorization token',
-            type: 'text',
-            required: true,
-            default: this.state.form.authorization || ''
-          }}
-        />
+        {!this.state.form.authorization &&
+          <Input
+            ref={(c) => { if (c) this.children.push(c); }}
+            onChange={value => this.props.onChange({ authorization: value })}
+            validations={['required']}
+            properties={{
+              name: 'authorization',
+              label: 'Authorization token',
+              type: 'text',
+              required: true,
+              default: this.state.form.authorization || ''
+            }}
+          />
+        }
 
         <Input
           ref={(c) => { if (c) this.children.push(c); }}
@@ -67,7 +69,7 @@ class Step1 extends Step {
           properties={{
             name: 'topics',
             label: 'Topics',
-            default: this.state.form.topics[0],
+            default: (this.state.form.topics) ? this.state.form.topics[0] : '',
             required: true
           }}
         />
@@ -82,7 +84,7 @@ class Step1 extends Step {
             name: 'tags',
             label: 'Tags',
             type: 'text',
-            default: this.state.form.tags,
+            default: this.state.form.tags || [],
             required: true
           }}
         />
