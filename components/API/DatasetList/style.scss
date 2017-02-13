@@ -2,6 +2,23 @@
   padding: 60px;
   font-family: 'Helvetica Neue';
 
+  .intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .sort {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    select {
+      margin-left: 10px;
+    }
+  }
+
   .list {
     padding: 0;
 
