@@ -1,0 +1,18 @@
+.c-field-container {
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  margin: 24px 0 0;
+  &:first-child {
+    margin: 0;
+  }
+
+
+  > * {
+    margin: 24px 0 0;
+    &:first-child {
+      margin: 0;
+    }
+  }
+}
