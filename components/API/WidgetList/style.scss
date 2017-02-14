@@ -1,0 +1,43 @@
+.c-widgets-list {
+  padding: 60px;
+  font-family: 'Helvetica Neue';
+
+  .intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .sort {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    select {
+      margin-left: 10px;
+    }
+  }
+
+  .list {
+    padding: 0;
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, .3);
+    }
+
+    .btn-edit {
+      margin-left: 10px;
+      text-decoration: none;
+      color: #1919ca;
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+  }
+}
