@@ -14,15 +14,15 @@ class WidgetsList extends React.Component {
   }
 
   componentWillMount() {
-    const { application } = this.props;
-    this.getWidgets(application);
+    const { application, path, dataset } = this.props;
+    this.getWidgets(path, application, dataset);
 
     // Bindings
     this.sortWidgets = this.sortWidgets.bind(this);
   }
 
   render() {
-    const { url } = this.props;
+    const { path } = this.props;
 
     return (
       <div className="c-widgets-list">
@@ -37,27 +37,45 @@ class WidgetsList extends React.Component {
             </select>
           </div>
         </div>
-        <ul className="list">
-          { this.state.widgets.length ?
-            this.state.widgets.map((widget, i) => {
-              return (
-                <li key={i} className="item">
-                  {widget.name ? widget.name : widget.msg }
-                  { widget.id && <a href={`${url}?id=${widget.id}`} className="btn-edit">Edit</a> }
-                </li>
-              );
-            }) :
-            <li className="item">{this.state.message}</li>
-          }
-        </ul>
+        { this.state.widgets.length ?
+          <table className="list">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default</th>
+                <th>Has config</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                { this.state.widgets.map((widget, i) => {
+                  return (
+                    <tr key={i} className="item">
+                      <td>{widget.name ? widget.name : widget.msg }</td>
+                      <td>{widget.default ? 'true': 'false'}</td>
+                      <td>{widget.config ? 'true': 'false'}</td>
+                      <td>{ widget.dataset ? <a href={`/dataset?id=${widget.dataset}`} className="btn-edit">Dataset</a> : 'Dataset' }</td>
+                      <td>{ widget.id && <a href={`/${path}?dataset=${widget.dataset}&widget=${widget.id}`} className="btn-edit">Edit</a> }</td>
+                    </tr>
+                  );
+                })
+              }
+            </tbody>
+          </table> :
+          <p>{this.state.message}</p>
+        }
       </div>
     );
   }
 
-  getWidgets(apps) {
+  getWidgets(path, apps, dataset) {
     const appsStr = apps.join(',');
+    const route = dataset ? `dataset/${dataset}/${path}`: path;
+    const app = dataset ? '' : `app=${appsStr}&`;
+    const url = `https://api.resourcewatch.org/${route}?${app}page[size]=${Date.now() / 100000}`;
 
-    fetch(new Request(`https://api.resourcewatch.org/widget?app=${appsStr}&page[size]=${Date.now() / 100000}`))
+    fetch(new Request(url))
     .then((response) => {
       if (response.ok) return response.json();
       this.setState({ message: 'Error loading widgets' });
@@ -75,9 +93,14 @@ class WidgetsList extends React.Component {
 
   parseData(data) {
     return data.map((widget) => {
+      const config = widget.attributes.widgetConfig;
+
       return {
         name: widget.attributes.name,
-        id: widget.id
+        id: widget.id,
+        dataset: widget.attributes.dataset,
+        default: widget.attributes.default,
+        config: config && Object.keys(config).length > 0
       };
     });
   }
@@ -106,7 +129,8 @@ class WidgetsList extends React.Component {
 
 WidgetsList.propTypes = {
   application: React.PropTypes.array.isRequired,
-  url: React.PropTypes.string.isRequired,
+  path: React.PropTypes.string.isRequired,
+  dataset: React.PropTypes.string,
 };
 
 export default WidgetsList;
