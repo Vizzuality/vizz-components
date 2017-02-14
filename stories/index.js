@@ -9,6 +9,7 @@ import SvgIcon from '../components/SvgIcon';
 import DatasetForm from '../components/API/DatasetForm';
 import DatasetList from '../components/API/DatasetList';
 import WidgetForm from '../components/API/WidgetForm';
+import LayerForm from '../components/API/LayerForm';
 
 
 storiesOf('UI Components', module)
@@ -111,5 +112,14 @@ storiesOf('API modules', module)
       authorization=""
       dataset="89a6358e-27eb-4b9c-9f0d-befc4959f914"
       widget="61628091-8679-4db8-bc47-851c51784f32"
+    />
+  ))
+  .add('Layer Form', () => (
+    <LayerForm
+      api="https://api.resourcewatch.org"
+      application={['rw']}
+      authorization=""
+      dataset="b7bf012f-4b8b-4478-b5c9-6af3075ca1e4"
+      layer="7a46cc6f-a54d-4385-be60-46a18c437a3b"
     />
   ));

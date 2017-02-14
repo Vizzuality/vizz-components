@@ -9,12 +9,12 @@ import { STATE_DEFAULT } from './constants';
 import Step1 from './Steps/step-1';
 import FormNavigation from './FormNavigation';
 
-class WidgetForm extends React.Component {
+class LayerForm extends React.Component {
   constructor(props) {
     super(props);
     const newState = Object.assign({}, STATE_DEFAULT, {
       dataset: props.dataset,
-      widget: props.widget,
+      layer: props.layer,
       form: Object.assign({}, STATE_DEFAULT.form, {
         application: props.application,
         authorization: props.authorization
@@ -28,12 +28,12 @@ class WidgetForm extends React.Component {
   }
 
   componentWillMount() {
-    if (this.state.dataset && this.state.widget) {
+    if (this.state.dataset && this.state.layer) {
       // Start the loading
       this.setState({ loading: true });
 
       const xmlhttp = new XMLHttpRequest();
-      xmlhttp.open('GET', `http://api.resourcewatch.org/dataset/${this.state.dataset}/widget/${this.state.widget}`);
+      xmlhttp.open('GET', `http://api.resourcewatch.org/dataset/${this.state.dataset}/layer/${this.state.layer}`);
       xmlhttp.setRequestHeader('Content-Type', 'application/json');
       xmlhttp.setRequestHeader('Authorization', this.state.form.authorization);
       xmlhttp.send();
@@ -43,7 +43,6 @@ class WidgetForm extends React.Component {
           if (xmlhttp.status === 200 || xmlhttp.status === 201) {
             const response = JSON.parse(xmlhttp.responseText);
             this.setState({
-              dataset: response.data.id,
               form: this.setFormFromParams(response.data.attributes),
               // Stop the loading
               loading: false
@@ -79,17 +78,17 @@ class WidgetForm extends React.Component {
           // Send the request
           const xmlhttp = new XMLHttpRequest();
           const xmlhttpOptions = {
-            type: (this.state.dataset && this.state.widget) ? 'PATCH' : 'POST',
+            type: (this.state.dataset && this.state.layer) ? 'PATCH' : 'POST',
             authorization: this.state.form.authorization,
             contentType: 'application/json',
             omit: ['authorization']
           };
-          xmlhttp.open(xmlhttpOptions.type, `http://api.resourcewatch.org/dataset/${this.state.dataset}/widget/${this.state.widget || ''}`);
+          xmlhttp.open(xmlhttpOptions.type, `http://api.resourcewatch.org/dataset/${this.state.dataset}/layer/${this.state.layer || ''}`);
           xmlhttp.setRequestHeader('Content-Type', xmlhttpOptions.contentType);
           xmlhttp.setRequestHeader('Authorization', xmlhttpOptions.authorization);
           xmlhttp.send(JSON.stringify({
             // Remove unnecesary atributtes to prevent 'Unprocessable Entity error'
-            widget: omit(this.state.form, xmlhttpOptions.omit)
+            layer: omit(this.state.form, xmlhttpOptions.omit)
           }));
 
           xmlhttp.onreadystatechange = () => {
@@ -99,7 +98,7 @@ class WidgetForm extends React.Component {
 
               if (xmlhttp.status === 200 || xmlhttp.status === 201) {
                 const response = JSON.parse(xmlhttp.responseText);
-                const successMessage = `The widget "${response.data.id}" - "${response.data.attributes.name}" has been uploaded correctly`;
+                const successMessage = `The layer "${response.data.id}" - "${response.data.attributes.name}" has been uploaded correctly`;
                 console.info(response);
                 console.info(successMessage);
                 alert(successMessage);
@@ -108,7 +107,7 @@ class WidgetForm extends React.Component {
                 // This will trigger the PATCH function
                 this.setState({
                   step: 1,
-                  widget: response.data.id
+                  layer: response.data.id
                 });
               } else {
                 console.info('Error');
@@ -173,11 +172,11 @@ class WidgetForm extends React.Component {
   }
 }
 
-WidgetForm.propTypes = {
+LayerForm.propTypes = {
   application: React.PropTypes.array,
   authorization: React.PropTypes.string,
   dataset: React.PropTypes.string.isRequired,
-  widget: React.PropTypes.string
+  layer: React.PropTypes.string
 };
 
-export default WidgetForm;
+export default LayerForm;
