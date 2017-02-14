@@ -21,13 +21,17 @@
 
   .list {
     padding: 0;
+    width: 100%;
+    border-collapse: collapse;
 
-    .item {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 10px;
+    thead {
+      text-align: left;
+    }
+
+    th, td {
+      border-bottom: 1px solid rgba(0, 0, 0, .2);
+      padding: 10px 10px;
       margin-bottom: 10px;
-      border-bottom: 1px solid rgba(0, 0, 0, .3);
     }
 
     .btn-edit {

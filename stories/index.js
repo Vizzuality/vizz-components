@@ -104,7 +104,7 @@ storiesOf('API modules', module)
     <DatasetList
       api="https://api.resourcewatch.org"
       application={['rw']}
-      url="/dataset"
+      path="dataset"
     />
   ))
   .add('Widget Form', () => (

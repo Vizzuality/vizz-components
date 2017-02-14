@@ -14,15 +14,15 @@ class DatasetsList extends React.Component {
   }
 
   componentWillMount() {
-    const { application } = this.props;
-    this.getDatasets(application);
+    const { application, path } = this.props;
+    this.getDatasets(path, application);
 
     // Bindings
     this.sortDatasets = this.sortDatasets.bind(this);
   }
 
   render() {
-    const { url } = this.props;
+    const { path } = this.props;
 
     return (
       <div className="c-datasets-list">
@@ -37,27 +37,42 @@ class DatasetsList extends React.Component {
             </select>
           </div>
         </div>
-        <ul className="list">
-          { this.state.datasets.length ?
-            this.state.datasets.map((dataset, i) => {
-              return (
-                <li key={i} className="item">
-                  {dataset.name ? dataset.name : dataset.msg }
-                  { dataset.id && <a href={`${url}?id=${dataset.id}`} className="btn-edit">Edit</a> }
-                </li>
-              );
-            }) :
-            <li className="item">{this.state.message}</li>
-          }
-        </ul>
+        { this.state.datasets.length ?
+          <table className="list">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Applications</th>
+                <th>Has Layer</th>
+                <th>Has Widget</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              { this.state.datasets.map((dataset, i) => {
+                return (
+                  <tr key={i} className="item">
+                    <td>{dataset.name ? dataset.name : dataset.msg }</td>
+                    <td>{dataset.apps}</td>
+                    <td>{dataset.layer ? 'true' : 'false'}</td>
+                    <td>{dataset.widget ? 'true' : 'false'}</td>
+                    <td>{ dataset.id && <a href={`${path}?id=${dataset.id}`} className="btn-edit">Edit</a> }</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table> :
+          <p>{this.state.message}</p>
+        }
       </div>
     );
   }
 
-  getDatasets(apps) {
+  getDatasets(path, apps) {
     const appsStr = apps.join(',');
+    const url = `https://api.resourcewatch.org/${path}?app=${appsStr}&includes=widget,layer&page[size]=${Date.now() / 100000}`;
 
-    fetch(new Request(`https://api.resourcewatch.org/dataset?app=${appsStr}&page[size]=${Date.now() / 100000}`))
+    fetch(new Request(url))
     .then((response) => {
       if (response.ok) return response.json();
       this.setState({ message: 'Error loading datasets' });
@@ -75,9 +90,14 @@ class DatasetsList extends React.Component {
 
   parseData(data) {
     return data.map((dataset) => {
+      const attr = dataset.attributes;
+
       return {
         name: dataset.attributes.name,
-        id: dataset.id
+        id: dataset.id,
+        apps: attr.application.join(', '),
+        widget: attr.widget && Object.keys(attr.widget).length > 0,
+        layer: attr.layer && Object.keys(attr.layer).length > 0
       };
     });
   }
@@ -106,7 +126,7 @@ class DatasetsList extends React.Component {
 
 DatasetsList.propTypes = {
   application: React.PropTypes.array.isRequired,
-  url: React.PropTypes.string.isRequired,
+  path: React.PropTypes.string.isRequired,
 };
 
 export default DatasetsList;
