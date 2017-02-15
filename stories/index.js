@@ -1,11 +1,11 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Globe from '../dist/Globe';
-import Modal from '../dist/Modal';
-import Spinner from '../dist/Spinner';
-import RadioGroup from '../dist/Form/RadioGroup';
-import CheckboxGroup from '../dist/Form/CheckboxGroup';
-import SvgIcon from '../dist/SvgIcon';
+import Globe from '../components/Globe';
+import Modal from '../components/Modal';
+import Spinner from '../components/Spinner';
+import RadioGroup from '../components/Form/RadioGroup';
+import CheckboxGroup from '../components/Form/CheckboxGroup';
+import SvgIcon from '../components/SvgIcon';
 
 storiesOf('UI Components', module)
 .add('Modal', () => (
