@@ -16,5 +16,5 @@ If you want to contribute to this project adding new React components, just foll
 * Install project dependences with `npm install`
 * Create your component inside `components` directory
 * Add your component story inside `stories/index.js` file
-* Run the storybook with `npm run server`
+* Run the storybook with `npm start`
 * Send us a pull-request with your awesome component :)
