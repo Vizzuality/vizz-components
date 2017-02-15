@@ -1,10 +1,9 @@
-import './style.scss';
-
 import React from 'react';
 import * as THREE from 'three';
 import orbitControl from 'three-orbit-controls';
 import earthImage from './images/earth-clouds.jpg';
 import earthBumpImage from './images/earth-bump.jpg';
+import './style.scss';
 
 const Control = orbitControl(THREE);
 

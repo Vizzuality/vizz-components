@@ -1,6 +1,5 @@
-import './style.scss';
-
 import React, { Component } from 'react';
+import './style.scss';
 
 class Modal extends Component {
 
@@ -13,7 +12,7 @@ class Modal extends Component {
   }
 
   componentWillMount() {
-    this._setConfig();
+    this.setConfig();
   }
 
   componentDidMount() {
@@ -21,19 +20,26 @@ class Modal extends Component {
       // disables scroll window when modal is visible
       document.querySelector('body').style.overflow = 'hidden';
 
-      this._setEventListeners();
+      this.setEventListeners();
     }
   }
 
   componentDidUpdate(prevProps, nextProps) {
-    if (!nextProps.visibility) this._removeEventListeners();
+    if (!nextProps.visibility) this.removeEventListeners();
   }
 
-  _setConfig() {
+  onKeyDown(event) {
+    // 27 => ESC key
+    if (event.keyCode !== 27) return;
+
+    this.closeModal();
+  }
+
+  setConfig() {
     // needs to be initialiazed and have a global scope inside the component
     // because of adding/removing event
-    const onKeyDown= (e) => {
-      this._onKeyDown(e);
+    const onKeyDown = (e) => {
+      this.onKeyDown(e);
     };
 
     this.config = {
@@ -41,22 +47,15 @@ class Modal extends Component {
     };
   }
 
-  _setEventListeners() {
+  setEventListeners() {
     document.addEventListener('keydown', this.config.onKeyDown);
   }
 
-  _removeEventListeners() {
+  removeEventListeners() {
     document.removeEventListener('keydown', this.config.onKeyDown);
   }
 
-  _onKeyDown(event) {
-    // 27 => ESC key
-    if (event.keyCode !== 27) return;
-
-    this._closeModal();
-  }
-
-  _closeModal() {
+  closeModal() {
     // enables scroll window when modal is invisible
     document.querySelector('body').style.overflow = null;
 
@@ -70,15 +69,15 @@ class Modal extends Component {
           {this.props.veil &&
             <div
               className={this.props.cssClasses.veil}
-              onClick={() => this._closeModal()}
+              onClick={() => this.closeModal()}
             />}
 
           <div className={this.props.cssClasses.container}>
             <header className={this.props.cssClasses.header}>
               {this.props.closeable &&
                 <div
-                className={this.props.cssClasses.btnClose}
-                onClick={() => this._closeModal()}
+                  className={this.props.cssClasses.btnClose}
+                  onClick={() => this.closeModal()}
                 />}
             </header>
             <section className={this.props.cssClasses.content}>
@@ -87,8 +86,8 @@ class Modal extends Component {
             {this.props.hasFooter &&
               <footer className={this.props.cssClasses.footer}>
                 <button
-                  className='btn-accept'
-                  onClick={() => this._closeModal()}
+                  className="btn-accept"
+                  onClick={() => this.closeModal()}
                 >
                   Accept
                 </button>
