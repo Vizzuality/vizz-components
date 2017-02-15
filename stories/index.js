@@ -9,7 +9,9 @@ import SvgIcon from '../components/SvgIcon';
 import DatasetForm from '../components/API/DatasetForm';
 import DatasetList from '../components/API/DatasetList';
 import WidgetForm from '../components/API/WidgetForm';
+import WidgetList from '../components/API/WidgetList';
 import LayerForm from '../components/API/LayerForm';
+import LayerList from '../components/API/LayerList';
 
 
 storiesOf('UI Components', module)
@@ -102,7 +104,7 @@ storiesOf('API modules', module)
     <DatasetList
       api="https://api.resourcewatch.org"
       application={['rw']}
-      url="/dataset"
+      path="dataset"
     />
   ))
   .add('Widget Form', () => (
@@ -114,6 +116,14 @@ storiesOf('API modules', module)
       widget="61628091-8679-4db8-bc47-851c51784f32"
     />
   ))
+  .add('Widget List', () => (
+    <WidgetList
+      api="https://api.resourcewatch.org"
+      application={['rw']}
+      path="widget"
+      // dataset="25b0ab35-0865-42f8-9b02-24870d0c4e82"
+    />
+  ))
   .add('Layer Form', () => (
     <LayerForm
       api="https://api.resourcewatch.org"
@@ -121,5 +131,13 @@ storiesOf('API modules', module)
       authorization=""
       dataset="b7bf012f-4b8b-4478-b5c9-6af3075ca1e4"
       layer="7a46cc6f-a54d-4385-be60-46a18c437a3b"
+    />
+  ))
+  .add('Layer List', () => (
+    <LayerList
+      api="https://api.resourcewatch.org"
+      application={['rw']}
+      path="layer"
+      // dataset="b7bf012f-4b8b-4478-b5c9-6af3075ca1e4"
     />
   ));
