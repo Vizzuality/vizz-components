@@ -56,7 +56,7 @@ class LayersList extends React.Component {
                     <td>{layer.config ? 'true' : 'false'}</td>
                     <td>{layer.legend ? 'true' : 'false'}</td>
                     <td>{layer.dataset ? <a href={`/dataset?id=${layer.dataset}`} className="btn-edit">Dataset</a> : 'Dataset' }</td>
-                    <td>{layer.id && <a href={`${path}?id=${layer.id}`} className="btn-edit">Edit</a> }</td>
+                    <td>{layer.id && <a href={`${path}?dataset=${layer.dataset}&layer=${layer.id}`} className="btn-edit">Edit</a> }</td>
                   </tr>
                 );
               })}
