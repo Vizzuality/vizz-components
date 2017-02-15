@@ -14,28 +14,8 @@
     },
     "sourceType": "module"
   },
-  "extends": "airbnb",
+  "extends": "vizzuality",
   "rules": {
-    "no-console": ["error", {
-      "allow": ["warn", "error", "info"]
-    }],
-    "comma-dangle": ["error", {
-      "arrays": "only-multiline",
-      "objects": "only-multiline",
-      "imports": "never",
-      "exports": "never",
-      "functions": "ignore",
-    }],
-    "no-restricted-properties": ["error", {
-      "object": "arguments",
-      "property": "callee",
-      "message": "arguments.callee is deprecated",
-    }, {
-      "property": "__defineGetter__",
-      "message": "Please use Object.defineProperty instead.",
-    }, {
-      "property": "__defineSetter__",
-      "message": "Please use Object.defineProperty instead.",
-    }],
+    "jsx-a11y/no-static-element-interactions": 0
   }
 }
