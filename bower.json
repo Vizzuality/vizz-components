@@ -1,0 +1,17 @@
+{
+  "name": "vizz-components",
+  "description": "A collection of components to use in Vizzuality's project",
+  "main": "dist/index.js",
+  "authors": [
+    "David Inga <david.inga@vizzuality.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Vizzuality/vizz-components",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
