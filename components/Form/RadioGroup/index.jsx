@@ -29,7 +29,7 @@ class RadioGroup extends React.Component {
     });
 
     // Trigger change selected if it's needed
-    this.props.onChange && this.props.onChange(selectedObj);
+    if (this.props.onChange) this.props.onChange(selectedObj);
   }
 
   render() {
@@ -38,8 +38,8 @@ class RadioGroup extends React.Component {
 
     return (
       <div className={`c-radio-box ${this.props.className}`}>
-        {items.map((item, i) => (
-          <div key={i} className="c-radio">
+        {items.map(item => (
+          <div key={`c-radio-item-${name}`} className="c-radio">
             <input
               type="radio"
               name={name}
