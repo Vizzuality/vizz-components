@@ -26,9 +26,11 @@ class CheckboxGroup extends React.Component {
     const i = this.state.selected.indexOf(e.currentTarget.value);
 
     // Toggle element from the array
-    (i === -1) ?
-      newSelected.push(e.currentTarget.value) :
+    if (i === -1) {
+      newSelected.push(e.currentTarget.value);
+    } else {
       newSelected.splice(i, 1);
+    }
 
     // Set state
     this.setState({
@@ -38,7 +40,7 @@ class CheckboxGroup extends React.Component {
       const selectedArr = this.props.items.filter(item => (
         this.state.selected.indexOf(item.value) !== -1
       ));
-      this.props.onChange && this.props.onChange(selectedArr);
+      if (this.props.onChange) this.props.onChange(selectedArr);
     });
   }
 
@@ -48,8 +50,8 @@ class CheckboxGroup extends React.Component {
 
     return (
       <div className={`c-checkbox-box ${this.props.className}`}>
-        {items.map((item, i) => (
-          <div key={i} className="c-checkbox">
+        {items.map(item => (
+          <div key={`c-checkbox-item-${name}`} className="c-checkbox">
             <input
               type="checkbox"
               name={name}

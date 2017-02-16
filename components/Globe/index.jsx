@@ -1,9 +1,6 @@
 import React from 'react';
 import * as THREE from 'three';
 import orbitControl from 'three-orbit-controls';
-import earthImage from './images/earth-clouds.jpg';
-import earthBumpImage from './images/earth-bump.jpg';
-import './style.scss';
 
 const Control = orbitControl(THREE);
 
@@ -61,7 +58,7 @@ class GlobeComponent extends React.Component {
   addGlobe() {
     const material = new THREE.MeshPhongMaterial({
       map: this.imageLoader.load(this.props.basemapImage),
-      bumpMap: this.imageLoader.load(earthBumpImage),
+      bumpMap: this.imageLoader.load(this.props.earthBumpImage),
       bumpScale: 2
     });
     const geometry = new THREE.SphereGeometry(this.props.radius, 40, 30);
@@ -81,20 +78,26 @@ class GlobeComponent extends React.Component {
 
   render() {
     return (
-      <div ref={(node) => this.el = node} className="vizz-component-globe"></div>
+      <div ref={(node) => { this.el = node; }} className="vizz-component-globe" />
     );
   }
 
 }
 
 GlobeComponent.defaultProps = {
-  width: 500,
-  height: 500,
   radius: 200,
   autorotate: true,
   velocity: 0.15,
-  scrollTop: 0,
-  basemapImage: earthImage
+  scrollTop: 0
+};
+
+GlobeComponent.propTypes = {
+  radius: React.PropTypes.number,
+  autorotate: React.PropTypes.bool,
+  velocity: React.PropTypes.number,
+  scrollTop: React.PropTypes.number,
+  basemapImage: React.PropTypes.string,
+  earthBumpImage: React.PropTypes.string
 };
 
 export default GlobeComponent;
