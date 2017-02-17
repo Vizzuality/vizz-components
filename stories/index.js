@@ -12,6 +12,7 @@ import DatasetList from '../components/API/DatasetList';
 import WidgetInfo from '../components/API/WidgetInfo';
 import WidgetForm from '../components/API/WidgetForm';
 import WidgetList from '../components/API/WidgetList';
+import LayerInfo from '../components/API/LayerInfo';
 import LayerForm from '../components/API/LayerForm';
 import LayerList from '../components/API/LayerList';
 
@@ -138,6 +139,13 @@ storiesOf('API modules', module)
       application={['rw']}
       path="widget"
       // dataset="25b0ab35-0865-42f8-9b02-24870d0c4e82"
+    />
+  ))
+  .add('Layer Info', () => (
+    <LayerInfo
+      api="https://api.resourcewatch.org"
+      path='layer'
+      layer="87e294b1-80fe-4ddc-baac-d2e2e28d9894"
     />
   ))
   .add('Layer Form', () => (

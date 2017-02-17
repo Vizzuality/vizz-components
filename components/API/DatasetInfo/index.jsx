@@ -47,15 +47,13 @@ class DatasetsInfo extends React.Component {
             </div>
             <div>
               Applications:
-              {this.renderStringList(data.application)}
+              {data.application.length ? this.renderStringList(data.application) : ''}
             </div>
             <p>Provider: {data.provider}</p>
             <div>
               Tags:
-              {this.renderStringList(data.tags)}
+              {data.tags.length ? this.renderStringList(data.tags) : ''}
             </div>
-            <p>
-            </p>
             <p>Status: {data.status}</p>
             <p>Overwrite: {data.overwrite ? 'true' : 'false'}</p>
             <p>Has widget: {data.hasWidget ? 'true' : 'false'}</p>

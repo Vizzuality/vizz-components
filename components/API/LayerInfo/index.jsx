@@ -1,21 +1,21 @@
 import React from 'react';
 import '../../Common/styles/c-info.scss';
 
-class WidgetInfo extends React.Component {
+class LayerInfo extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      widget: {},
+      layer: {},
       message: 'Loading...',
       default: {}
     };
   }
 
   componentWillMount() {
-    const { widget, path } = this.props;
-    this.getWidgetInfo(path, widget);
+    const { layer, path } = this.props;
+    this.getLayerInfo(path, layer);
   }
 
   renderObjectList(arr, type) {
@@ -36,7 +36,7 @@ class WidgetInfo extends React.Component {
 
   render() {
     const { path } = this.props;
-    const data = this.state.widget;
+    const data = this.state.layer;
 
     return (
       <div>
@@ -48,24 +48,31 @@ class WidgetInfo extends React.Component {
             <p><span>Description:</span> {data.description}</p>
             <div>
               <span>Applications:</span>
-              {data.application.length ? this.renderStringList(data.application) : ''}
+              {data.application.length && this.renderStringList(data.application)}
             </div>
-            <p><span>Source:</span> {data.source}</p>
+            <p><span>Provider:</span> {data.provider}</p>
             <p><span>Dataset:</span> {data.dataset} <a href={`/dataset/${data.dataset}`}>See</a></p>
-            <p><span>Query url:</span> {data.queryUrl}</p>
+            <div>
+              <span>Iso:</span>
+              {data.iso.length ? this.renderStringList(data.iso) : ''}
+            </div>
             <p><span>Default:</span> {data.default ? 'true' : 'false'}</p>
-            <div><span>Widget config:</span>
-              {Object.keys(data.widgetConfig).length ?
+            <div><span>Layer config:</span>
+              {Object.keys(data.layerConfig).length ?
                 <code>
-                  <pre>{JSON.stringify(data.widgetConfig || {}, null, 2)}</pre>
+                  <pre>{JSON.stringify(data.layerConfig || {}, null, 2)}</pre>
                 </code> : ' {}'
               }
             </div>
-            <p><span>Status:</span> {data.status}</p>
-            <p><span>Published:</span> {data.published}</p>
-            <p><span>Overwrite:</span> {data.overwrite ? 'true' : 'false'}</p>
+            <div><span>Legend config:</span>
+              {Object.keys(data.legendConfig).length ?
+                <code>
+                  <pre>{JSON.stringify(data.legendConfig || {}, null, 2)}</pre>
+                </code> : ' {}'
+              }
+            </div>
             <div className="bar">
-              <a href={`/widget/${data.id}/edit`}>Edit</a>
+              <a href={`/layer/${data.id}/edit`}>Edit</a>
             </div>
           </div>) :
           <p>{this.state.message}</p>
@@ -74,33 +81,33 @@ class WidgetInfo extends React.Component {
     );
   }
 
-  getWidgetInfo(path, id) {
+  getLayerInfo(path, id) {
     const url = `https://api.resourcewatch.org/${path}/${id}?page[size]=${Date.now() / 100000}`;
 
     fetch(new Request(url))
     .then((response) => {
       if (response.ok) return response.json();
-      this.setState({ message: 'Error loading widget' });
+      this.setState({ message: 'Error loading layer' });
       throw new Error(response.statusText);
     })
     .then((response) => {
-      const message = !Object.keys(response.data).length ? 'No widget info' : '';
-      const widget = this.parseData(response.data);
-      this.setState({ message, widget, default: widget });
+      const message = !Object.keys(response.data).length ? 'No layer info' : '';
+      const layer = this.parseData(response.data);
+      this.setState({ message, layer, default: layer });
     })
     .catch((err) => {
-      this.setState({ message: 'Error loading widgets' });
+      this.setState({ message: 'Error loading layer' });
     });
   }
 
-  parseData(widget) {
-    return Object.assign({}, widget.attributes, { id: widget.id });
+  parseData(layer) {
+    return Object.assign({}, layer.attributes, { id: layer.id });
   }
 }
 
-WidgetInfo.propTypes = {
-  widget: React.PropTypes.string.isRequired,
+LayerInfo.propTypes = {
+  layer: React.PropTypes.string.isRequired,
   path: React.PropTypes.string.isRequired,
 };
 
-export default WidgetInfo;
+export default LayerInfo;
