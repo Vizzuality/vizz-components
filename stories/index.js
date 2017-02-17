@@ -6,8 +6,10 @@ import Spinner from '../components/Spinner';
 import RadioGroup from '../components/Form/RadioGroup';
 import CheckboxGroup from '../components/Form/CheckboxGroup';
 import SvgIcon from '../components/SvgIcon';
+import DatasetInfo from '../components/API/DatasetInfo';
 import DatasetForm from '../components/API/DatasetForm';
 import DatasetList from '../components/API/DatasetList';
+import WidgetInfo from '../components/API/WidgetInfo';
 import WidgetForm from '../components/API/WidgetForm';
 import WidgetList from '../components/API/WidgetList';
 import LayerForm from '../components/API/LayerForm';
@@ -92,6 +94,13 @@ storiesOf('Visualisations', module)
 
 
 storiesOf('API modules', module)
+  .add('Dataset Info', () => (
+    <DatasetInfo
+      api="https://api.resourcewatch.org"
+      path="dataset"
+      dataset="426fa4e2-edee-4f54-93d1-af95d7f4aec8"
+    />
+  ))
   .add('Dataset Form', () => (
     <DatasetForm
       api="https://api.resourcewatch.org"
@@ -105,6 +114,13 @@ storiesOf('API modules', module)
       api="https://api.resourcewatch.org"
       application={['rw']}
       path="dataset"
+    />
+  ))
+  .add('Widget Info', () => (
+    <WidgetInfo
+      api="https://api.resourcewatch.org"
+      path="widget"
+      widget="f6f18cd2-ce95-4436-af73-32378ebaa551"
     />
   ))
   .add('Widget Form', () => (
