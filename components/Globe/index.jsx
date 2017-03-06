@@ -8,9 +8,7 @@ class GlobeComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      scrollTop: props.scrollTop
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -87,15 +85,13 @@ class GlobeComponent extends React.Component {
 GlobeComponent.defaultProps = {
   radius: 200,
   autorotate: true,
-  velocity: 0.15,
-  scrollTop: 0
+  velocity: 0.15
 };
 
 GlobeComponent.propTypes = {
   radius: React.PropTypes.number,
   autorotate: React.PropTypes.bool,
   velocity: React.PropTypes.number,
-  scrollTop: React.PropTypes.number,
   basemapImage: React.PropTypes.string,
   earthBumpImage: React.PropTypes.string
 };
