@@ -6,6 +6,7 @@ import Spinner from '../components/Spinner';
 import RadioGroup from '../components/Form/RadioGroup';
 import CheckboxGroup from '../components/Form/CheckboxGroup';
 import SvgIcon from '../components/SvgIcon';
+import GlobeComponent from '../components/Globe';
 
 import '../components/Globe/style.scss';
 import earthImage from '../components/Globe/images/earth.jpg';
