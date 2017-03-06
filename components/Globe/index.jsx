@@ -251,8 +251,6 @@ class GlobeComponent extends React.Component {
 
     this.scene.add(ambientLight);
     this.camera.add(pointLight);
-
-    console.info("pointlight", pointLight);
   }
 
   addControls() {
