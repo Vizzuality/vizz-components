@@ -3,6 +3,7 @@ import { debounce } from 'lodash';
 import * as THREE from 'three';
 import orbitControls from 'three-orbit-controls';
 
+/* global Stats */
 const OrbitControls = orbitControls(THREE);
 const imageLoader = new THREE.TextureLoader();
 
@@ -115,16 +116,16 @@ class GlobeComponent extends React.Component {
       throw new Error('Scene and camera should be created before.');
     }
 
-    const ambientLight = new THREE.AmbientLight(this.props.ambientLightColor);
-    const pointLight = new THREE.PointLight(this.props.pointLightColor, 0.885);
-    const x = 400;
-    const y = 350;
-    const z = 250;
+    const { pointLightIntensity, pointLightColor, ambientLightColor,
+      pointLightPosition, pointLightX, pointLightY, pointLightZ } = this.props;
 
-    if (this.props.lightPosition === 'left') {
-      pointLight.position.set(-x, y, z);
+    const ambientLight = new THREE.AmbientLight(ambientLightColor);
+    const pointLight = new THREE.PointLight(pointLightColor, pointLightIntensity);
+
+    if (pointLightPosition === 'left') {
+      pointLight.position.set(-pointLightX, pointLightY, pointLightZ);
     } else {
-      pointLight.position.set(x, y, z);
+      pointLight.position.set(pointLightX, pointLightY, pointLightZ);
     }
 
     this.scene.add(ambientLight);
@@ -188,7 +189,7 @@ class GlobeComponent extends React.Component {
     // Appending canvas
     this.el.appendChild(this.renderer.domElement);
 
-    if (config && config.env !== 'production') {
+    if (this.props.showStats) {
       this.addStats();
     }
   }
@@ -298,8 +299,13 @@ GlobeComponent.defaultProps = {
 
   // Lights
   ambientLightColor: 0x262626,
+  // Point light
   pointLightColor: 0xdddddd,
-  lightPosition: 'left',
+  pointLightIntensity: 0.885,
+  pointLightPosition: 'left',
+  pointLightX: 400,
+  pointLightY: 350,
+  pointLightZ: 250,
 
   // Controls
   autorotate: false,
@@ -330,8 +336,11 @@ GlobeComponent.defaultProps = {
 
   // Halo
   useHalo: true,
-  haloExtraRadiusPercentage: 16 /* Resulting from calculating the increment
+  haloExtraRadiusPercentage: 16, /* Resulting from calculating the increment
   taking into account that for a given radius of 50 the new radius should be 58 */
+
+  // Stats
+  showStats: false
 };
 
 GlobeComponent.propTypes = {
@@ -341,9 +350,13 @@ GlobeComponent.propTypes = {
   height: React.PropTypes.number,
 
   // Lights
-  ambientLightColor: React.PropTypes.string,
-  pointLightColor: React.PropTypes.string,
-  lightPosition: React.PropTypes.string,
+  ambientLightColor: React.PropTypes.number,
+  pointLightColor: React.PropTypes.number,
+  pointLightIntensity: React.PropTypes.number,
+  pointLightPosition: React.PropTypes.string,
+  pointLightX: React.PropTypes.number,
+  pointLightY: React.PropTypes.number,
+  pointLightZ: React.PropTypes.number,
 
   // Controls
 
@@ -381,7 +394,10 @@ GlobeComponent.propTypes = {
 
   // Halo
   useHalo: React.PropTypes.bool,
-  haloExtraRadiusPercentage: React.PropTypes.number
+  haloExtraRadiusPercentage: React.PropTypes.number,
+
+  // Stats
+  showStats: React.PropTypes.bool
 
 };
 
