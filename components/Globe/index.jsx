@@ -19,12 +19,16 @@ class GlobeComponent extends React.Component {
   }
 
   componentDidMount() {
+    const { useHalo, useDefaultLayer } = this.props;
+
     this.createScene();
     this.createEarth();
-    if (this.props.useHalo) {
+    if (useHalo) {
       this.addHalo();
     }
-    this.setTexture();
+    if (useDefaultLayer) {
+      this.setTexture();
+    }
     this.addLights();
     this.addControls();
 
@@ -65,11 +69,11 @@ class GlobeComponent extends React.Component {
    * Method to change layers to earth
    */
   setTexture() {
-    const mapImage = imageLoader.load(this.state.texture);
-    // const mapImage = this.state.texture ?
-    //   imageLoader.load(this.state.texture) : cloudsMapImage;
+    const mapImage = this.state.texture ?
+       imageLoader.load(this.state.texture) : imageLoader.load(this.props.defaultLayerImagePath);
     const { radius, segments, rings, textureExtraRadiusPercentage } = this.props;
     const newRadius = radius + ((radius * textureExtraRadiusPercentage) / 100);
+    console.info("Texture newRadius", newRadius);
     if (!this.currentTexture) {
       const geometry = new THREE.SphereGeometry(newRadius, segments, rings);
       const material = new THREE.MeshBasicMaterial({
@@ -85,83 +89,12 @@ class GlobeComponent extends React.Component {
     this.scene.add(this.currentTexture);
   }
 
-  slideToRight() {
-    if (this.state.texture) {
-      this.changePosition(180, 0);
-    } else {
-      this.resetPosition();
-    }
-  }
-
-  addControls() {
-    const controls = new OrbitControls(this.camera, this.renderer.domElement);
-
-    // Configuring controls
-    controls.minDistance = 50 + 30;
-    controls.maxDistance = 124;
-    controls.enableDamping = this.props.enableDamping;
-    controls.dampingFactor = this.props.dampingFactor;
-    controls.autoRotate = this.props.autorotate;
-    controls.enablePan = this.props.enablePan;
-    controls.enableZoom = this.props.enableZoom;
-    controls.zoomSpeed = this.props.zoomSpeed;
-    controls.rotateSpeed = this.props.rotateSpeed;
-    controls.autoRotateSpeed = this.props.autoRotateSpeed;
-
-    this.controls = controls;
-  }
-
-  addLights() {
-    if (!this.scene) {
-      throw new Error('Scene and camera should be created before.');
-    }
-
-    const { pointLightIntensity, pointLightColor, ambientLightColor,
-      pointLightPosition, pointLightX, pointLightY, pointLightZ } = this.props;
-
-    const ambientLight = new THREE.AmbientLight(ambientLightColor);
-    const pointLight = new THREE.PointLight(pointLightColor, pointLightIntensity);
-
-    if (pointLightPosition === 'left') {
-      pointLight.position.set(-pointLightX, pointLightY, pointLightZ);
-    } else {
-      pointLight.position.set(pointLightX, pointLightY, pointLightZ);
-    }
-
-    this.scene.add(ambientLight);
-    this.camera.add(pointLight);
-  }
-
   /**
-   * Add stats
-   */
-  addStats() {
-    const scriptElement = document.createElement('script');
-    scriptElement.onload = function onLoad() {
-      const stats = new Stats();
-      document.body.appendChild(stats.dom);
-      requestAnimationFrame(function loop() {
-        stats.update();
-        requestAnimationFrame(loop);
-      });
-    };
-    scriptElement.src = '//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';
-    document.head.appendChild(scriptElement);
-    return this;
-  }
-
-  /**
-   * Change globe position
-   * @param  {Number} offsetX
-   * @param  {Number} offsetY
-   */
-  changePosition(offsetX, offsetY) {
-    const width = this.state.width;
-    const height = this.state.height;
-    const oX = offsetX ? (width * offsetX * -1) / 1000 : 0;
-    const oY = offsetY ? (width * offsetY * -1) / 1000 : 0;
-
-    this.camera.setViewOffset(width, height, oX, oY, width, height);
+  * Calculate the halo radius according to the properties involved
+  */
+  getHaloRadius() {
+    const { radius, haloExtraRadiusPercentage } = this.props;
+    return radius + ((radius * haloExtraRadiusPercentage) / 100);
   }
 
   /**
@@ -243,12 +176,12 @@ class GlobeComponent extends React.Component {
       transparent: true
     });
 
-    const { radius, segments, haloExtraRadiusPercentage } = this.props;
-    const haloRadius = radius + ((radius * haloExtraRadiusPercentage) / 100);
+    const { segments } = this.props;
+    const haloRadius = this.getHaloRadius();
     const geometry = new THREE.SphereGeometry(haloRadius, segments, segments);
-    const halo = new THREE.Mesh(geometry, material);
+    this.halo = new THREE.Mesh(geometry, material);
 
-    this.scene.add(halo);
+    this.scene.add(this.halo);
   }
 
   /**
@@ -268,6 +201,90 @@ class GlobeComponent extends React.Component {
   }
 
   /**
+   * Change globe position
+   * @param  {Number} offsetX
+   * @param  {Number} offsetY
+   */
+  changePosition(offsetX, offsetY) {
+    const width = this.state.width;
+    const height = this.state.height;
+    const oX = offsetX ? (width * offsetX * -1) / 1000 : 0;
+    const oY = offsetY ? (width * offsetY * -1) / 1000 : 0;
+
+    this.camera.setViewOffset(width, height, oX, oY, width, height);
+  }
+
+  /**
+   * Add stats
+   */
+  addStats() {
+    const scriptElement = document.createElement('script');
+    scriptElement.onload = function onLoad() {
+      const stats = new Stats();
+      document.body.appendChild(stats.dom);
+      requestAnimationFrame(function loop() {
+        stats.update();
+        requestAnimationFrame(loop);
+      });
+    };
+    scriptElement.src = '//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';
+    document.head.appendChild(scriptElement);
+    return this;
+  }
+
+  addLights() {
+    if (!this.scene) {
+      throw new Error('Scene and camera should be created before.');
+    }
+
+    const { pointLightIntensity, pointLightColor, ambientLightColor,
+      pointLightPosition, pointLightX, pointLightY, pointLightZ } = this.props;
+
+    const ambientLight = new THREE.AmbientLight(ambientLightColor);
+    const pointLight = new THREE.PointLight(pointLightColor, pointLightIntensity);
+
+    if (pointLightPosition === 'left') {
+      pointLight.position.set(-pointLightX, pointLightY, pointLightZ);
+    } else {
+      pointLight.position.set(pointLightX, pointLightY, pointLightZ);
+    }
+
+    this.scene.add(ambientLight);
+    this.camera.add(pointLight);
+
+    console.info("pointlight", pointLight);
+  }
+
+  addControls() {
+    const controls = new OrbitControls(this.camera, this.renderer.domElement);
+
+    const { enableDamping, dampingFactor, autorotate, enablePan, enableZoom,
+      zoomSpeed, rotateSpeed, autoRotateSpeed, maxDistance, minDistance } = this.props;
+
+    // Configuring controls
+    controls.minDistance = minDistance;
+    controls.maxDistance = maxDistance;
+    controls.enableDamping = enableDamping;
+    controls.dampingFactor = dampingFactor;
+    controls.autoRotate = autorotate;
+    controls.enablePan = enablePan;
+    controls.enableZoom = enableZoom;
+    controls.zoomSpeed = zoomSpeed;
+    controls.rotateSpeed = rotateSpeed;
+    controls.autoRotateSpeed = autoRotateSpeed;
+
+    this.controls = controls;
+  }
+
+  slideToRight() {
+    if (this.state.texture) {
+      this.changePosition(180, 0);
+    } else {
+      this.resetPosition();
+    }
+  }
+
+  /**
    * Reset globe position
    */
   resetPosition() {
@@ -281,6 +298,8 @@ class GlobeComponent extends React.Component {
     this.camera.aspect = this.state.width / this.state.height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.state.width, this.state.height);
+    // this.halo.geometry.radius = this.getHaloRadius();
+    // console.info('this.halo.geometry.radius', this.halo.geometry.radius);
   }
 
   render() {
@@ -316,6 +335,8 @@ GlobeComponent.defaultProps = {
   zoomSpeed: 0.25,
   enableDamping: true, // Set true to enable inertia
   dampingFactor: 0.25,
+  maxDistance: 124,
+  minDistance: 80,
   radius: 50,
   segments: 32,
   rings: 32,
@@ -327,6 +348,9 @@ GlobeComponent.defaultProps = {
   earthBumpImagePath: null,
   bumpScale: 0.01,
   texture: null,
+  // Default layer
+  userDefaultLayer: false,
+  defaultLayerImagePath: null,
 
   // Camera
   cameraFov: 75,
@@ -377,6 +401,8 @@ GlobeComponent.propTypes = {
   enablePan: React.PropTypes.bool,
   enableZoom: React.PropTypes.bool,
   zoomSpeed: React.PropTypes.number,
+  maxDistance: React.PropTypes.number,
+  minDistance: React.PropTypes.number,
 
   // Top layer (e.g. clouds)
 
@@ -385,6 +411,9 @@ GlobeComponent.propTypes = {
   earthBumpImagePath: React.PropTypes.string,
   bumpScale: React.PropTypes.number,
   texture: React.PropTypes.string,
+  // Default layer
+  defaultLayerImagePath: React.PropTypes.string,
+  useDefaultLayer: React.PropTypes.bool,
 
   // Camera
   cameraFov: React.PropTypes.number,
