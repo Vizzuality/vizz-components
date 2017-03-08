@@ -9,7 +9,7 @@ import SvgIcon from '../components/SvgIcon';
 import GlobeComponent from '../components/Globe';
 
 import '../components/Globe/style.scss';
-import earthImage from '../components/Globe/images/earth.jpg';
+import earthImage from '../components/Globe/images/earth-min.jpg';
 import earthBumpImage from '../components/Globe/images/earth-bump.jpg';
 import cloudsImage from '../components/Globe/images/clouds.png';
 
@@ -85,17 +85,19 @@ storiesOf('Form Components', module)
   });
 
 storiesOf('Visualisations', module)
-.add('Globe 3D', () => (
-  <GlobeComponent
-    earthImagePath={earthImage}
-    earthBumpImagePath={earthBumpImage}
-    defaultLayerImagePath={cloudsImage}
-    useDefaultLayer={true}
-    useHalo={true}
-    enableZoom={true}
-    pointLightColor={0xcccccc}
-    ambientLightColor={0x444444}
-    segments={64}
-    rings={64}
-    />
-));
+  .add('Globe 3D', () => (
+    <GlobeComponent
+      className="vizz-component-globe"
+      earthImagePath={earthImage}
+      earthBumpImagePath={earthBumpImage}
+      defaultLayerImagePath={cloudsImage}
+      useDefaultLayer={true}
+      useHalo={true}
+      enableZoom={true}
+      pointLightColor={0xcccccc}
+      ambientLightColor={0x444444}
+      segments={64}
+      rings={64}
+      lightPosition={'right'}
+      />
+  ));

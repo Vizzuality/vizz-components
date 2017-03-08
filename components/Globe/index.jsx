@@ -73,7 +73,7 @@ class GlobeComponent extends React.Component {
        imageLoader.load(this.state.texture) : imageLoader.load(this.props.defaultLayerImagePath);
     const { radius, segments, rings, textureExtraRadiusPercentage } = this.props;
     const newRadius = radius + ((radius * textureExtraRadiusPercentage) / 100);
-    console.info("Texture newRadius", newRadius);
+    //console.info("Texture newRadius", newRadius);
     if (!this.currentTexture) {
       const geometry = new THREE.SphereGeometry(newRadius, segments, rings);
       const material = new THREE.MeshBasicMaterial({
@@ -138,7 +138,7 @@ class GlobeComponent extends React.Component {
     const material = new THREE.MeshPhongMaterial({
       map: imageLoader.load(earthImagePath),
       bumpMap: imageLoader.load(earthBumpImagePath),
-      bumpScale: { bumpScale }
+      bumpScale: bumpScale
     });
     const geometry = new THREE.SphereGeometry(radius, segments, rings);
     const earth = new THREE.Mesh(geometry, material);
@@ -251,6 +251,10 @@ class GlobeComponent extends React.Component {
 
     this.scene.add(ambientLight);
     this.camera.add(pointLight);
+
+    // console.info('pointLightColor', pointLightColor);
+    // console.info('ambientLightColor', ambientLightColor);
+    // console.info('pointLight', pointLight);
   }
 
   addControls() {
