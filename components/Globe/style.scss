@@ -1,5 +1,7 @@
+$galaxy_image: "./images/galaxy_new.jpg";
+
 .vizz-component-globe {
-  background-image: url("./images/galaxy.png");
+  background-image: url($galaxy_image);
   background-position: center;
 
   > canvas {
