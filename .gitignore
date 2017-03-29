@@ -13,3 +13,6 @@
 
 # Compiled
 /dist
+
+# ENV files
+.env
