@@ -1,5 +1,2 @@
 .eslintrc*
 .editorconfig
-.storybook
-components
-stories

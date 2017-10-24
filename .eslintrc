@@ -7,15 +7,7 @@
   },
   "globals": {
   },
-  "parserOptions": {
-    "ecmaVersion": 7,
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
   "extends": "vizzuality",
   "rules": {
-    "jsx-a11y/no-static-element-interactions": 0
   }
 }
