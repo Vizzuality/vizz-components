@@ -1,5 +1,6 @@
 import React from 'react';
-import { debounce } from 'lodash';
+import PropTypes from 'prop-types';
+import debounce from 'lodash/debounce';
 import * as THREE from 'three';
 import orbitControls from 'three-orbit-controls';
 
@@ -8,7 +9,6 @@ const OrbitControls = orbitControls(THREE);
 const imageLoader = new THREE.TextureLoader();
 
 class GlobeComponent extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,7 @@ class GlobeComponent extends React.Component {
    */
   setTexture() {
     const mapImage = this.state.texture ?
-       imageLoader.load(this.state.texture) : imageLoader.load(this.props.defaultLayerImagePath);
+      imageLoader.load(this.state.texture) : imageLoader.load(this.props.defaultLayerImagePath);
     const { radius, segments, rings, textureExtraRadiusPercentage } = this.props;
     const newRadius = radius + ((radius * textureExtraRadiusPercentage) / 100);
     if (!this.currentTexture) {
@@ -137,7 +137,7 @@ class GlobeComponent extends React.Component {
     const material = new THREE.MeshPhongMaterial({
       map: imageLoader.load(earthImagePath),
       bumpMap: imageLoader.load(earthBumpImagePath),
-      bumpScale: bumpScale
+      bumpScale
     });
     const geometry = new THREE.SphereGeometry(radius, segments, rings);
     const earth = new THREE.Mesh(geometry, material);
@@ -305,7 +305,6 @@ class GlobeComponent extends React.Component {
       <div ref={(node) => { this.el = node; }} className="vizz-component-globe" />
     );
   }
-
 }
 
 GlobeComponent.defaultProps = {
@@ -368,63 +367,63 @@ GlobeComponent.defaultProps = {
 GlobeComponent.propTypes = {
 
   // Size
-  width: React.PropTypes.number,
-  height: React.PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
 
   // Lights
-  ambientLightColor: React.PropTypes.number,
-  pointLightColor: React.PropTypes.number,
-  pointLightIntensity: React.PropTypes.number,
-  pointLightPosition: React.PropTypes.string,
-  pointLightX: React.PropTypes.number,
-  pointLightY: React.PropTypes.number,
-  pointLightZ: React.PropTypes.number,
+  ambientLightColor: PropTypes.number,
+  pointLightColor: PropTypes.number,
+  pointLightIntensity: PropTypes.number,
+  pointLightPosition: PropTypes.string,
+  pointLightX: PropTypes.number,
+  pointLightY: PropTypes.number,
+  pointLightZ: PropTypes.number,
 
   // Controls
 
   // Sphere structure
-  radius: React.PropTypes.number,
-  segments: React.PropTypes.number,
-  rings: React.PropTypes.number,
-  textureExtraRadiusPercentage: React.PropTypes.number,
+  radius: PropTypes.number,
+  segments: PropTypes.number,
+  rings: PropTypes.number,
+  textureExtraRadiusPercentage: PropTypes.number,
 
   // Rotation
-  enableDamping: React.PropTypes.bool,
-  autorotate: React.PropTypes.bool,
-  autoRotateSpeed: React.PropTypes.number,
-  rotateSpeed: React.PropTypes.number,
-  dampingFactor: React.PropTypes.number,
+  enableDamping: PropTypes.bool,
+  autorotate: PropTypes.bool,
+  autoRotateSpeed: PropTypes.number,
+  rotateSpeed: PropTypes.number,
+  dampingFactor: PropTypes.number,
 
   // Zoom + Pan
-  enablePan: React.PropTypes.bool,
-  enableZoom: React.PropTypes.bool,
-  zoomSpeed: React.PropTypes.number,
-  maxDistance: React.PropTypes.number,
-  minDistance: React.PropTypes.number,
+  enablePan: PropTypes.bool,
+  enableZoom: PropTypes.bool,
+  zoomSpeed: PropTypes.number,
+  maxDistance: PropTypes.number,
+  minDistance: PropTypes.number,
 
   // Top layer (e.g. clouds)
 
   // Earth textures
-  earthImagePath: React.PropTypes.string,
-  earthBumpImagePath: React.PropTypes.string,
-  bumpScale: React.PropTypes.number,
-  texture: React.PropTypes.string,
+  earthImagePath: PropTypes.string,
+  earthBumpImagePath: PropTypes.string,
+  bumpScale: PropTypes.number,
+  texture: PropTypes.string,
   // Default layer
-  defaultLayerImagePath: React.PropTypes.string,
-  useDefaultLayer: React.PropTypes.bool,
+  defaultLayerImagePath: PropTypes.string,
+  useDefaultLayer: PropTypes.bool,
 
   // Camera
-  cameraFov: React.PropTypes.number,
-  cameraNear: React.PropTypes.number,
-  cameraFar: React.PropTypes.number,
-  cameraPositionZ: React.PropTypes.number,
+  cameraFov: PropTypes.number,
+  cameraNear: PropTypes.number,
+  cameraFar: PropTypes.number,
+  cameraPositionZ: PropTypes.number,
 
   // Halo
-  useHalo: React.PropTypes.bool,
-  haloExtraRadiusPercentage: React.PropTypes.number,
+  useHalo: PropTypes.bool,
+  haloExtraRadiusPercentage: PropTypes.number,
 
   // Stats
-  showStats: React.PropTypes.bool
+  showStats: PropTypes.bool
 };
 
 export default GlobeComponent;

@@ -1,12 +1,13 @@
 {
   "name": "vizz-components",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A collection of components to use in Vizzuality's project",
   "main": "src/index.js",
   "scripts": {
     "test": "eslint --ext .js --ext .jsx .",
     "build": "",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "start": "styleguidist server"
   },
   "repository": {
     "type": "git",
@@ -20,14 +21,25 @@
   "homepage": "https://github.com/Vizzuality/vizz-components#readme",
   "dependencies": {
     "lodash": "^4.17.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "node-sass": "^4.7.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.1.1",
+    "react-css-modules": "^4.7.1",
+    "react-dom": "^16.1.1",
+    "three": "^0.88.0",
+    "three-orbit-controls": "^82.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^4.9.0",
-    "eslint-config-vizzuality": "^1.0.7"
+    "css-loader": "^0.28.7",
+    "eslint": "^4.11.0",
+    "eslint-config-vizzuality": "^1.0.7",
+    "react-styleguidist": "^6.0.33",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1"
   }
 }

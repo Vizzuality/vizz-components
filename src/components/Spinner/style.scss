@@ -1,16 +1,12 @@
-.c-loading-spinner {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
-  z-index: 2;
-
-  &.-transparent {
-    background-color: transparent;
-  }
+.c-spinner {
+  position: relative;
+  z-index: 1;
 
   &.-inner {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
   }
 
   > svg {
