@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
-import styles from './style.scss';
+import styles from './spinner.scss';
 
 export function Spinner(props) {
   return (

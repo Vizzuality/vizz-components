@@ -1,0 +1,57 @@
+{
+  "id": "fbdb2177-cb91-4d21-b345-59037e276752",
+  "type": "layer",
+  "attributes": {
+    "name": "Flood Risk by Country",
+    "slug": "population-affected-by-floods-50-return-year-in-2030-under-bussines-as-usual-scenario",
+    "dataset": "01ddff59-8cbc-4420-8c0d-9d8317a63292",
+    "description": "Percentage of national population affected by floods in 2030, projected using business-as-usual assumptions.",
+    "application": [
+      "rw"
+    ],
+    "iso": [],
+    "provider": "cartodb",
+    "userId": "58fa22c54eecd907310778cd",
+    "default": true,
+    "env": "production",
+    "layerConfig": {
+      "account": "wri-rw",
+      "body": {
+        "maxzoom": 18,
+        "minzoom": 2,
+        "layers": [{
+          "type": "cartodb",
+          "options": {
+            "sql": "SELECT the_geom, the_geom_webmercator, cartodb_id, p30_24_50 FROM aqueduct_global_flood_risk_data_by_country_20150304",
+            "cartocss": "#layer {polygon-fill: ramp([p30_24_50], (#fffbca, #ffe01b, #f6bb0f, #f6811d, #e24e2c), jenks);} #layer::outline {line-width: 0; line-color: #FFF; line-opacity: 0.5;}",
+            "cartocss_version": "2.3.0"
+          }
+        }]
+      }
+    },
+    "legendConfig": {
+      "type": "basic",
+      "unit": "He",
+      "items": [{
+        "name": "Extremely high (>80%)",
+        "color": "#e24e2c"
+      }, {
+        "name": "High (40-80%)",
+        "color": "#f6811d"
+      }, {
+        "name": "Medium-high (20-40%)",
+        "color": "#f6bb0f"
+      }, {
+        "name": "Low-medium (10-20%)",
+        "color": "#ffe01b"
+      }, {
+        "name": "Low (<10%)",
+        "color": "#fffbca"
+      }]
+    },
+    "interactionConfig": {},
+    "applicationConfig": {},
+    "staticImageConfig": {},
+    "updatedAt": "2017-10-05T20:34:38.606Z"
+  }
+}

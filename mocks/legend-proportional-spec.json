@@ -1,0 +1,24 @@
+{
+  "type": "proportional",
+  "items": [{
+    "name": "Extremely high (>80%)",
+    "color": "#e24e2c",
+    "size": 15
+  }, {
+    "name": "High (40-80%)",
+    "color": "#e24e2c",
+    "size": 20
+  }, {
+    "name": "Medium-high (20-40%)",
+    "color": "#e24e2c",
+    "size": 25
+  }, {
+    "name": "Low-medium (10-20%)",
+    "color": "#e24e2c",
+    "size": 30
+  }, {
+    "name": "Low (<10%)",
+    "color": "#e24e2c",
+    "size": 35
+  }]
+}

@@ -1,10 +1,11 @@
-// const path = require('path');
+const path = require('path');
 
 module.exports = {
   showCode: true,
   showUsage: true,
   skipComponentsWithoutExample: true,
   webpackConfig: {
+    devtool: 'source-map',
     module: {
       rules: [
         {
@@ -15,8 +16,21 @@ module.exports = {
         {
           test: /\.scss$/,
           loader: 'style-loader!css-loader?modules!sass-loader'
+        },
+        {
+          test: /\.css$/,
+          loader: 'style-loader!css-loader?modules'
+        },
+        {
+          test: /\.(png|jpg)$/,
+          loader: 'file-loader'
         }
       ]
+    },
+    resolve: {
+      alias: {
+        mocks: path.resolve(__dirname, './mocks')
+      }
     }
   }
 };
