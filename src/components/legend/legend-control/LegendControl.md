@@ -1,8 +1,18 @@
-Legend example:
+Legend example with layersSpec:
 
 ```js
-const { data } = require('mocks/layers-spec');
-const layersSpec = data.map(({ id, attributes }) => Object.assign({}, { id }, attributes));
+const { WRIAPISerializer } = require('helpers/rw-api-serializer');
+const layersSpec= require('mocks/layers-spec');
 
-<LegendControl layersSpec={layersSpec} position="bottomright" />
+<LegendControl layersSpec={WRIAPISerializer(layersSpec)} position="bottomright" />
+```
+
+
+Legend example with datasetsSpec:
+
+```js
+const { WRIAPISerializer } = require('helpers/rw-api-serializer');
+const datasetsSpec = require('mocks/datasets-spec');
+
+<LegendControl datasetsSpec={WRIAPISerializer(datasetsSpec)} position="bottomright" />
 ```

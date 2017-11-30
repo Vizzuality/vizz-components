@@ -29,7 +29,8 @@ module.exports = {
     },
     resolve: {
       alias: {
-        mocks: path.resolve(__dirname, './mocks')
+        mocks: path.resolve(__dirname, './mocks'),
+        helpers: path.resolve(__dirname, './src/helpers')
       }
     }
   }

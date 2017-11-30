@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import LegendListItem from '../legend-list-item/LegendListItem';
+import styles from './legend-list.scss';
 
 const SortableItem = SortableElement(LegendListItem);
 
@@ -36,14 +38,22 @@ class LegendList extends React.PureComponent {
     const { sortable } = this.props;
     const { items } = this.state;
 
-    if (sortable) return (<SortableLegendList items={items} onSortEnd={this.onSortEnd} />);
+    if (sortable) {
+      return (
+        <div styleName="c-legend-list">
+          <SortableLegendList items={items} onSortEnd={this.onSortEnd} />
+        </div>
+      );
+    }
 
     return (
-      <ul>
-        {items.map(value => (
-          <LegendListItem key={`legend-item-${value.id}`} value={value} />
-        ))}
-      </ul>
+      <div styleName="c-legend-list">
+        <ul>
+          {items.map(value => (
+            <LegendListItem key={`legend-item-${value.id}`} value={value} />
+          ))}
+        </ul>
+      </div>
     );
   }
 }
@@ -53,4 +63,4 @@ LegendList.propTypes = {
   sortable: PropTypes.bool
 };
 
-export default LegendList;
+export default CSSModules(LegendList, styles);

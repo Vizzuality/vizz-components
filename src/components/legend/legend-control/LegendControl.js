@@ -5,6 +5,19 @@ import LegendList from './legend-list/LegendList';
 import styles from './legend-control.scss';
 
 export class LegendControl extends React.PureComponent {
+  static getLegendList({ layersSpec, sortable }) {
+    return (<LegendList items={layersSpec} sortable={sortable} />);
+  }
+
+  static getMultipleLegendList({ datasetsSpec }) {
+    return datasetsSpec.map(({ id, name, layer }) => (
+      <div key={`legent-item-${id}`}>
+        <h2>{name}</h2>
+        <LegendList items={layer} sortable={false} />
+      </div>
+    ));
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +31,7 @@ export class LegendControl extends React.PureComponent {
   }
 
   render() {
-    const { layersSpec, position, sortable } = this.props;
+    const { layersSpec, datasetsSpec, position, sortable } = this.props;
     const { collapsed } = this.state;
 
     return (
@@ -26,8 +39,12 @@ export class LegendControl extends React.PureComponent {
         {collapsed ?
           <button type="button" onClick={this.toggle}>Open</button> :
           <button type="button" onClick={this.toggle}>Close</button>}
-        <div styleName={`c-legend-list ${collapsed ? '-collapsed' : ''}`}>
-          <LegendList items={layersSpec} sortable={sortable} />
+        <div styleName={`c-legend-panel ${collapsed ? '-collapsed' : ''}`}>
+          { (layersSpec && layersSpec.length > 0) &&
+            LegendControl.getLegendList({ layersSpec, sortable }) }
+
+          { (datasetsSpec && datasetsSpec.length > 0) &&
+            LegendControl.getMultipleLegendList({ datasetsSpec }) }
         </div>
       </div>
     );
@@ -36,12 +53,15 @@ export class LegendControl extends React.PureComponent {
 
 LegendControl.propTypes = {
   layersSpec: PropTypes.array,
+  datasetsSpec: PropTypes.array,
   sortable: PropTypes.bool,
   collapsed: PropTypes.bool,
   position: PropTypes.oneOf(['topright', 'topleft', 'bottomright', 'bottomleft'])
 };
 
 LegendControl.defaultProps = {
+  layersSpec: [],
+  datasetsSpec: [],
   sortable: true,
   collapsed: false,
   position: 'bottomright'
