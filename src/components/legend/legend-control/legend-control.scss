@@ -1,0 +1,18 @@
+.c-legend-control {
+  &.-topright { top: 0; bottom: 'auto'; left: 'auto'; right: 0 }
+  &.-topleft { top: 0; bottom: 'auto'; left: 0; right: 'auto' }
+  &.-bottomright { top: 0; bottom: 'auto'; left: 'auto'; right: 0 }
+  &.-bottomleft { top: 'auto'; bottom: 0; left: 0; right: 'auto' }
+}
+
+.c-legend-list {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &.-collapsed {
+    display: none;
+  }
+}
