@@ -6,10 +6,19 @@
 }
 
 .c-legend-list {
-  ul {
+  > ul {
     list-style: none;
     margin: 0;
     padding: 0;
+
+    > li {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
   }
 
   &.-collapsed {
