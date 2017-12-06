@@ -1,0 +1,19 @@
+{
+  "type": "choropleth",
+  "items": [{
+    "color": "#ffffb2",
+    "name": "None/Minimal"
+  }, {
+    "color": "#fecc5c",
+    "name": "Stressed"
+  }, {
+    "color": "#fd8d3c",
+    "name": "Crisis"
+  }, {
+    "color": "#f03b20",
+    "name": "Emergency"
+  }, {
+    "color": "#bd0026",
+    "name": "Humanitarian Catastrophe/Famine"
+  }]
+}

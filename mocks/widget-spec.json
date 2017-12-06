@@ -1,0 +1,336 @@
+{
+  "id": "8154cc1d-b5d2-40fa-995d-6afc698ed43a",
+  "type": "widget",
+  "attributes": {
+    "name": "10 Largest Political Boundary Areas",
+    "dataset": "098b33df-6871-4e53-a5ff-b56a7d989f9a",
+    "slug": "10-Largest-Political-Boundary-Areas",
+    "userId": "59db4eace9c1380001d6e4c3",
+    "description": "",
+    "source": "",
+    "authors": "",
+    "application": [
+      "rw"
+    ],
+    "verified": false,
+    "default": false,
+    "defaultEditableWidget": true,
+    "published": true,
+    "env": "production",
+    "queryUrl": "",
+    "widgetConfig": {
+      "interaction_config": [{
+        "config": {
+          "fields": [{
+            "format": ".2f",
+            "label": "Name_1",
+            "key": "x"
+          }, {
+            "format": ".2s",
+            "label": "Area_ha",
+            "key": "y"
+          }]
+        },
+        "name": "tooltip"
+      }],
+      "marks": [{
+        "axes": [{
+          "grid": "true",
+          "name": "Total co2 emmissions",
+          "properties": {
+            "axis": {
+              "strokeWidth": {
+                "value": 0
+              }
+            }
+          },
+          "offset": 5,
+          "tickSizeEnd": 0,
+          "scale": "y",
+          "type": "y"
+        }],
+        "scales": [{
+          "padding": 1,
+          "points": true,
+          "round": true,
+          "bandSize": 25,
+          "domain": {
+            "field": "x",
+            "data": "table"
+          },
+          "range": "width",
+          "type": "ordinal",
+          "name": "x"
+        }],
+        "marks": [{
+          "properties": {
+            "enter": {
+              "y2": {
+                "value": 0,
+                "scale": "y"
+              },
+              "y": {
+                "field": "y",
+                "scale": "y"
+              },
+              "width": {
+                "offset": -15,
+                "band": true,
+                "scale": "x"
+              },
+              "xc": {
+                "field": "x",
+                "scale": "x"
+              }
+            }
+          },
+          "from": {
+            "data": "table"
+          },
+          "type": "rect"
+        }, {
+          "properties": {
+            "enter": {
+              "opacity": [{
+                "value": 1,
+                "test": "datum.min_y < 0"
+              }, {
+                "value": 0
+              }],
+              "strokeWidth": {
+                "value": 1
+              },
+              "stroke": {
+                "value": "#A9ABAD"
+              },
+              "x2": {
+                "field": {
+                  "group": "width"
+                }
+              },
+              "x": {
+                "value": "0"
+              },
+              "y": {
+                "value": "0",
+                "scale": "y"
+              }
+            }
+          },
+          "from": {
+            "data": "stats"
+          },
+          "type": "rule"
+        }, {
+          "axes": [{
+            "properties": {
+              "labels": {
+                "baseline": {
+                  "value": "middle"
+                },
+                "align": {
+                  "value": "right"
+                },
+                "angle": {
+                  "value": 270
+                },
+                "text": {
+                  "template": "{{ datum[\"data\"] | truncate:25 }}"
+                }
+              },
+              "axis": {
+                "strokeWidth": {
+                  "value": 0
+                }
+              }
+            },
+            "tickSizeEnd": 0,
+            "scale": "x",
+            "type": "x"
+          }],
+          "properties": {
+            "update": {
+              "y": {
+                "offset": 5,
+                "signal": "height"
+              }
+            }
+          },
+          "type": "group"
+        }],
+        "properties": {
+          "update": {
+            "width": {
+              "field": "width"
+            }
+          }
+        },
+        "from": {
+          "data": "layout"
+        },
+        "type": "group"
+      }],
+      "axes": [{
+        "properties": {
+          "labels": {
+            "text": {
+              "template": ""
+            }
+          }
+        },
+        "tickSize": 0,
+        "ticks": 0,
+        "scale": "x",
+        "type": "x"
+      }, {
+        "properties": {
+          "axis": {
+            "strokeWidth": {
+              "value": 0
+            }
+          }
+        },
+        "offset": 5,
+        "tickSizeEnd": 0,
+        "scale": "y",
+        "type": "y"
+      }],
+      "scales": [{
+        "real": false,
+        "domain": {
+          "field": "x",
+          "data": "table"
+        },
+        "range": "width",
+        "type": "ordinal",
+        "name": "x"
+      }, {
+        "domain": {
+          "field": "y",
+          "data": "table"
+        },
+        "range": "height",
+        "type": "linear",
+        "name": "y"
+      }],
+      "data": [{
+        "values": [{
+          "y": 7577536.9085532,
+          "x": "Marsabit"
+        }, {
+          "y": 6372044.64354886,
+          "x": "Turkana"
+        }, {
+          "y": 5663687.96035126,
+          "x": "Wajir"
+        }, {
+          "y": 4404694.20301096,
+          "x": "Garissa"
+        }, {
+          "y": 3921755.76529691,
+          "x": "Tana River"
+        }, {
+          "y": 3045788.90496847,
+          "x": "Kitui"
+        }, {
+          "y": 2577212.32592217,
+          "x": "Mandera"
+        }, {
+          "y": 2555338.13944531,
+          "x": "Isiolo"
+        }, {
+          "y": 2199343.87728031,
+          "x": "Kajiado"
+        }, {
+          "y": 2095963.31288691,
+          "x": "Samburu"
+        }, {
+          "y": 1801526.89558005,
+          "x": "Narok"
+        }, {
+          "y": 1716747.44822811,
+          "x": "Taita Taveta"
+        }, {
+          "y": 1265188.40314657,
+          "x": "Kilifi"
+        }, {
+          "y": 1189750.26343913,
+          "x": "Nimba"
+        }, {
+          "y": 1089128.19189276,
+          "x": "Baringo"
+        }],
+        "name": "table"
+      }, {
+        "transform": [{
+          "summarize": [{
+            "ops": [
+              "distinct"
+            ],
+            "field": "x"
+          }],
+          "type": "aggregate"
+        }, {
+          "expr": "(datum[\"distinct_x\"] + 1) * 25",
+          "field": "width",
+          "type": "formula"
+        }],
+        "source": "table",
+        "name": "layout"
+      }, {
+        "transform": [{
+          "summarize": [{
+            "ops": [
+              "min"
+            ],
+            "field": "y"
+          }],
+          "type": "aggregate"
+        }],
+        "source": "table",
+        "name": "stats"
+      }],
+      "width": 1,
+      "paramsConfig": {
+        "layer": null,
+        "band": null,
+        "areaIntersection": null,
+        "filters": [{
+          "value": [
+            "County"
+          ],
+          "tableName": "gadm28_adm1",
+          "datasetID": "098b33df-6871-4e53-a5ff-b56a7d989f9a",
+          "type": "string",
+          "name": "type_1"
+        }],
+        "chartType": "bar",
+        "aggregateFunction": null,
+        "orderBy": {
+          "orderType": "desc",
+          "type": "number",
+          "name": "area_ha"
+        },
+        "size": null,
+        "color": null,
+        "category": {
+          "tableName": "gadm28_adm1",
+          "datasetID": "098b33df-6871-4e53-a5ff-b56a7d989f9a",
+          "type": "string",
+          "name": "name_1"
+        },
+        "value": {
+          "tableName": "gadm28_adm1",
+          "datasetID": "098b33df-6871-4e53-a5ff-b56a7d989f9a",
+          "type": "number",
+          "name": "area_ha"
+        },
+        "limit": 15,
+        "visualizationType": "chart"
+      }
+    },
+    "template": false,
+    "createdAt": "2017-10-11T11:47:04.631Z",
+    "updatedAt": "2017-10-11T11:47:04.631Z"
+  }
+}

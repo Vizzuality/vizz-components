@@ -1,0 +1,23 @@
+.c-legend-control {
+  position: relative;
+
+  > button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+  }
+
+  &.-topright { top: 0; bottom: 'auto'; left: 'auto'; right: 0 }
+  &.-topleft { top: 0; bottom: 'auto'; left: 0; right: 'auto' }
+  &.-bottomright { top: 0; bottom: 'auto'; left: 'auto'; right: 0 }
+  &.-bottomleft { top: 'auto'; bottom: 0; left: 0; right: 'auto' }
+}
+
+.c-legend-panel {
+  border: 1px solid #ddd;
+
+  &.-collapsed {
+    display: none;
+  }
+}

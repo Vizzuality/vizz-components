@@ -1,0 +1,20 @@
+{
+  "type": "basic",
+  "items": [{
+    "name": "Extremely high (>80%)",
+    "color": "#e24e2c",
+    "icon": "line"
+  }, {
+    "name": "High (40-80%)",
+    "color": "#f6811d"
+  }, {
+    "name": "Medium-high (20-40%)",
+    "color": "#f6bb0f"
+  }, {
+    "name": "Low-medium (10-20%)",
+    "color": "#ffe01b"
+  }, {
+    "name": "Low (<10%)",
+    "color": "#fffbca"
+  }]
+}

@@ -1,0 +1,16 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "globals": {},
+  "extends": "vizzuality",
+  "rules": {
+    "react/jsx-filename-extension": [1, {
+      "extensions": [".js", ".jsx"]
+    }],
+    "import/no-named-as-default": [0]
+  }
+}
