@@ -5,8 +5,8 @@ import styles from './legend-choropleth.scss';
 
 export const LegendChoropleth = ({ legendSpec }) => (
   <ul styleName="c-legend-choropleth">
-    {legendSpec.items.map(({ name, color }) => (
-      <li key={`legend-choropleth-item-${name}`}>
+    {legendSpec.items.map(({ id, name, color }) => (
+      <li key={id || name}>
         <div styleName="icon-choropleth" style={{ backgroundColor: color }} />
         <span styleName="name">{name}</span>
       </li>

@@ -1,6 +1,7 @@
 Legend example:
 
 ```js
-const layerSpec = require('mocks/layer-spec');
-<Legend layerSpec={layerSpec.attributes} />
+const { WRIAPISerializer } = require('helpers/rw-api-serializer');
+const layerSpec = require('mocks/carto-layer-spec');
+<Legend layerSpec={WRIAPISerializer(layerSpec)} />
 ```

@@ -2,49 +2,53 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map, TileLayer, LayersControl } from 'react-leaflet';
 
-const LeafletMap = (props) => {
-  const style = {
-    width: props.width,
-    height: props.height
-  };
+class LeafletMap extends React.PureComponent {
+  // componentDidMount() {
+  //   const map = this.mapElement.leafletElement;
+  //   console.log(map.getBounds().toBBoxString());
+  // }
 
-  return (
-    <Map
-      center={[0, 0]}
-      zoom={2}
-      {...props}
-      style={style}
-    >
-      <LayersControl position="topright">
-        <LayersControl.BaseLayer name="OpenStreetMap.BlackAndWhite" checked>
-          <TileLayer
-            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-            attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
-          />
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Carto">
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-            attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
-          />
-        </LayersControl.BaseLayer>
-      </LayersControl>
+  render() {
+    const { width, height } = this.props;
+    const style = { width, height };
 
-      {/*<LayerManager>
-        { layers.map((layerSpec) => <LayerItem layerSpec={layerSpec} />) }
-      </LayerManager>*/}
-
-      {/*<LegendControl
-        controls={['visible', 'opacity', 'info', 'remove']}
-        collapsed={false}
-        position="bottomright"
-        sortable
+    return (
+      <Map
+        {...this.props}
+        style={style}
+        ref={(el) => { this.mapElement = el; }}
       >
-        { layers.map((layerSpec) => <Legend layerSpec={layerSpec} />) }
-      </LegendControl>*/}
-    </Map>
-  );
-};
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer name="OpenStreetMap.BlackAndWhite" checked>
+            <TileLayer
+              url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+              attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
+            />
+          </LayersControl.BaseLayer>
+          <LayersControl.BaseLayer name="Carto">
+            <TileLayer
+              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+              attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
+            />
+          </LayersControl.BaseLayer>
+        </LayersControl>
+
+        {/*<LayerManager>
+          { layers.map((layerSpec) => <LayerItem layerSpec={layerSpec} />) }
+        </LayerManager>*/}
+
+        {/*<LegendControl
+          controls={['visible', 'opacity', 'info', 'remove']}
+          collapsed={false}
+          position="bottomright"
+          sortable
+        >
+          { layers.map((layerSpec) => <Legend layerSpec={layerSpec} />) }
+        </LegendControl>*/}
+      </Map>
+    );
+  }
+}
 
 LeafletMap.propTypes = {
   center: PropTypes.array,
@@ -55,8 +59,8 @@ LeafletMap.propTypes = {
 };
 
 LeafletMap.defaultProps = {
-  center: [0, 0],
-  zoom: 2,
+  center: [20, -20],
+  zoom: 1,
   zoomControl: true,
   width: 500,
   height: 350

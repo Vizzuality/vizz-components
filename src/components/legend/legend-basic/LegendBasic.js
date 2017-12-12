@@ -8,7 +8,7 @@ export const LegendBasic = ({ legendSpec, mode }) => (
   <div styleName="c-legend-basic">
     <ul styleName={mode}>
       {legendSpec.items.map(item => (
-        <li key={`legend-basic-item-${item.name}`}>
+        <li key={item.id || item.name}>
           <LegendItem {...item} />
         </li>
       ))}

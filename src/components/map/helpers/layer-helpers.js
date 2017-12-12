@@ -25,21 +25,22 @@ export const getImageFromCarto = ({ width, height, zoom, lat, lng, layerConfig }
     });
 };
 
-export const getImageFromMapService = ({ width, height, zoom, layerConfig }) => {
+export const getImageFromMapService = ({ width, height, layerConfig }) => {
   if (!layerConfig) throw Error('layerConfig param is required');
   if (!layerConfig.body) throw Error('layerConfig does not have body param');
 
   const { body } = layerConfig;
   const { url } = body;
-  const lat = 90;
-  const lng = 180;
-  // const bbox = encodeURIComponent([-lng, -lat, lng, lat].join(''));
-  const bbox = encodeURIComponent('-19.687500000000004,19.973348786110613,-19.687500000000004,19.973348786110613');
-  const bboxSR = encodeURIComponent(JSON.stringify({ wkid: 4326 })); // 4326 3857
-  const imageSR = encodeURIComponent(JSON.stringify({ wkid: 4326 }));
+
+  // BBOX for zoom 1, lat 20, long -20
+  const bbox = '-125.15625000000001,-55.7765730186677,85.78125,72.81607371878991';
+  const bboxSR = encodeURIComponent(JSON.stringify({ wkid: 4326 }));
+  const imageSR = encodeURIComponent(JSON.stringify({ wkid: 3857 }));
   const format = 'png';
 
-  return `${url}/export?bbox=${bbox}&bboxSR=${bboxSR}&layers=&layerDefs=&size=${width}%2C${height}&imageSR=${imageSR}&format=${format}&transparent=true&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&rotation=&f=image`;
+  const result = `${url}/export?bbox=${bbox}&bboxSR=${bboxSR}&layers=&layerDefs=&size=${width}%2C${height}&imageSR=${imageSR}&format=${format}&transparent=true&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&rotation=&f=image`;
+
+  return result;
 };
 
 export const getBasemapImage = async ({ width, height, zoom, lat, lng }) => {
@@ -78,7 +79,18 @@ export const getBasemapImage = async ({ width, height, zoom, lat, lng }) => {
 
 export const getLayerImage = async ({ width, height, zoom, lat, lng, layerSpec }) => {
   let result;
-  const { provider, layerConfig } = layerSpec;
+  let layerConfig;
+  let provider;
+
+  if (!layerSpec) throw Error('No layerSpec specified.');
+
+  if (layerSpec instanceof Array && layerSpec.length) {
+    layerConfig = layerSpec[0].layerConfig;
+    provider = layerSpec[0].provider;
+  } else {
+    layerConfig = layerSpec.layerConfig;
+    provider = layerSpec.provider;
+  }
 
   switch (provider) {
     case 'carto':
@@ -88,7 +100,13 @@ export const getLayerImage = async ({ width, height, zoom, lat, lng, layerSpec }
       result = await getImageFromCarto({ width, height, zoom, lat, lng, layerConfig });
       break;
     case 'mapservice':
-      result = getImageFromMapService({ width, height, zoom, lat, lng, layerConfig });
+      result = getImageFromMapService({ width, height, layerConfig });
+      break;
+    case 'featureservice':
+      result = getImageFromMapService({ width, height, layerConfig });
+      break;
+    case 'arcgis':
+      result = getImageFromMapService({ width, height, layerConfig });
       break;
     default:
       result = null;

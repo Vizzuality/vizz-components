@@ -97,3 +97,5 @@ export const getVisualisationTypes = (datasetData) => {
     visualisationTypes
   };
 };
+
+export default getVisualisationTypes;

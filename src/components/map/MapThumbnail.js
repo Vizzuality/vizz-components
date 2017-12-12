@@ -10,7 +10,7 @@ class MapThumbnail extends React.PureComponent {
 
   async componentDidMount() {
     const { width, height, zoom, lat, lng, layerSpec } = this.props;
-    const thumbnail = await getLayerImage({ width, height, zoom, lat, lng, layerSpec });
+    const thumbnail = await getLayerImage({ width, height, layerSpec });
     const basemap = await getBasemapImage({ width, height, zoom, lat, lng });
     this.setStateAsync({
       imageSrc: thumbnail,
@@ -48,7 +48,7 @@ MapThumbnail.propTypes = {
   lat: PropTypes.number,
   lng: PropTypes.number,
   // https://resource-watch.github.io/doc-api/#layer
-  layerSpec: PropTypes.object
+  layerSpec: PropTypes.any
 };
 
 MapThumbnail.defaultProps = {

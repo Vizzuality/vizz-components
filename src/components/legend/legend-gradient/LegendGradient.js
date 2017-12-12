@@ -10,8 +10,8 @@ export const LegendGradient = ({ legendSpec }) => {
     <div styleName="c-legend-gradient">
       <div styleName="icon-gradient" style={{ backgroundImage: `linear-gradient(to right, ${gradient.join(',')})` }} />
       <ul>
-        {legendSpec.items.map(({ name, color, value }) => (
-          <li key={`legend-gradient-item-${color}-${value}`}>
+        {legendSpec.items.map(({ name, id }) => (
+          <li key={id || name}>
             <span styleName="name">{name}</span>
           </li>
         ))}

@@ -5,5 +5,5 @@ Map example:
 ```
 
 ```js
-<LeafletMap width={700} height={500} />
+<LeafletMap width={300} height={250} zoom={1} center={[20, -20]} />
 ```

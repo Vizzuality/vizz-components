@@ -5,8 +5,8 @@ import styles from './legend-proportional.scss';
 
 export const LegendProportional = ({ legendSpec }) => (
   <ul styleName="c-legend-proportional">
-    {legendSpec.items.map(({ name, color, size }) => (
-      <li key={`legend-proportional-item-${name}`}>
+    {legendSpec.items.map(({ id, name, color, size }) => (
+      <li key={id || name}>
         <div
           styleName="icon-proportional"
           style={{ backgroundColor: color, width: size, height: size }}
