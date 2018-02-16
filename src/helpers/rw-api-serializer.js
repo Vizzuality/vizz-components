@@ -1,11 +1,14 @@
+import isArray from 'lodash/isArray';
+
 const serialize = ({ id, type, attributes }) => Object.assign({}, { id, type }, attributes);
 
-export const WRIAPIItemParser = (data) => {
-  const { id, type, attributes } = data;
+const itemSerializer = ({ id, type, attributes }) => {
   const d = Object.assign({}, { id, type }, attributes);
+
   if (d.widget) d.widget = d.widget.map(serialize);
   if (d.layer) d.layer = d.layer.map(serialize);
   if (d.metadata) d.metadata = d.metadata.map(serialize);
+  if (d.vocabulary) d.vocabulary = d.vocabulary.map(serialize);
   if (d.legendConfig && d.legendConfig.items) {
     d.legendConfig.items = d.legendConfig.items.map((item, index) => {
       const i = Object.assign({}, item);
@@ -13,12 +16,13 @@ export const WRIAPIItemParser = (data) => {
       return i;
     });
   }
+
   return d;
 };
 
-export const WRIAPISerializer = ({ data }) => {
-  if (data instanceof Array) return data.map(WRIAPIItemParser);
-  return WRIAPIItemParser(data);
+export const wriAPISerializer = ({ data }) => {
+  if (data && isArray(data)) return data.map(itemSerializer);
+  return itemSerializer(data);
 };
 
-export default WRIAPISerializer;
+export default wriAPISerializer;

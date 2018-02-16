@@ -1,0 +1,16 @@
+.c-legend-nexgddp-toolbar {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 10px;
+  position: relative;
+
+  .react-selectize {
+    width: auto;
+    margin-right: 10px;
+    font-size: 12px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

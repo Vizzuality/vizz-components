@@ -2,10 +2,10 @@
   "env": {
     "browser": true,
     "node": true,
-    "mocha": true,
     "es6": true
   },
   "globals": {},
+  "parser": "babel-eslint",
   "extends": "vizzuality",
   "rules": {
     "react/jsx-filename-extension": [1, {

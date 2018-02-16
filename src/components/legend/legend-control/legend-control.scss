@@ -1,5 +1,9 @@
 .c-legend-control {
-  position: relative;
+  position: absolute;
+  z-index: 1000;
+  max-width: 500px;
+  min-width: 260px;
+  width: 100%;
 
   > button {
     position: absolute;
@@ -8,16 +12,64 @@
     transform: translateY(-100%);
   }
 
-  &.-topright { top: 0; bottom: 'auto'; left: 'auto'; right: 0 }
+  &.-topright { top: 30px; bottom: 'auto'; left: 'auto'; right: 30px }
   &.-topleft { top: 0; bottom: 'auto'; left: 0; right: 'auto' }
   &.-bottomright { top: 0; bottom: 'auto'; left: 'auto'; right: 0 }
   &.-bottomleft { top: 'auto'; bottom: 0; left: 0; right: 'auto' }
 }
 
 .c-legend-panel {
+  background: white;
   border: 1px solid #ddd;
+  box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.15);
+  max-height: 70vh;
+  overflow-y: auto;
+
+  h2 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+
+    &:after {
+      display: none;
+    }
+  }
 
   &.-collapsed {
     display: none;
+  }
+}
+
+.c-legend-collapse-button {
+  position: absolute;
+  background: white;
+  top: 100%;
+  right: 0;
+  margin-top: -1px;
+  border: 1px solid #ddd;
+  z-index: -1;
+
+  .button-opened {
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button-closed {
+    padding: 5px 10px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+
+    > .help {
+      font-size: 14px;
+      display: inline-block;
+      margin-right: 10px;
+    }
   }
 }

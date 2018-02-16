@@ -5,3 +5,32 @@
     padding: 0;
   }
 }
+
+.c-legend-draggable {
+  display: flex;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.15);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .handler {
+    padding: 13px 5px;
+    cursor: move;
+
+    .c-icon {
+      margin-right: 0;
+      fill: rgba(#393F44, 0.2);
+    }
+  }
+
+  .c-legend-list-item {
+    flex: 1;
+
+    .c-legend {
+      padding-left: 0;
+    }
+  }
+}

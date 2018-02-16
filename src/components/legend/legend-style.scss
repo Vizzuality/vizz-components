@@ -1,0 +1,27 @@
+.c-legend {
+  padding: 15px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+
+  h3 {
+    font-size: 14px;
+    margin: 0 0 5px 0;
+  }
+
+  ul {
+    margin: 0;
+    list-style: none;
+
+    li {
+      list-style: none;
+    }
+  }
+
+  .name {
+    line-height: 1.05;
+  }
+
+  .c-legend-header {
+    display: flex;
+    align-items: flex-start;
+  }
+}

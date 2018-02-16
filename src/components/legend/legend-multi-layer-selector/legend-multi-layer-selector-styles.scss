@@ -1,0 +1,28 @@
+@import 'settings';
+
+.c-legend-multi-layer-selector {
+  max-width: 210px;
+
+  .rc-tooltip-inner {
+    padding: 16px;
+  }
+
+  .layer-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      color: $white;
+      list-style: none;
+
+      &.-active {
+        color: $link-font-color;
+      }
+
+      > button {
+        text-align: left;
+      }
+    }
+  }
+}

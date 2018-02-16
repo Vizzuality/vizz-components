@@ -3,7 +3,7 @@
   align-items: center;
 
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
 
   .name, .unit {
     display: block;
@@ -16,7 +16,8 @@
   > .icon-square,
   > .icon-line,
   > .icon-circle,
-  > .icon-triangle {
+  > .icon-triangle,
+  .custom-icon {
     display: block;
     margin-right: 5px;
   }
@@ -24,6 +25,7 @@
   > .icon-square {
     width: 12px;
     height: 12px;
+    flex-shrink: 0;
   }
 
   > .icon-line {
@@ -40,5 +42,17 @@
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-bottom: 9px solid black;
+  }
+
+  .custom-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+
+    img {
+      display: block;
+      width: 14px;
+      height: 14px;
+    }
   }
 }
