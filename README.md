@@ -1,6 +1,6 @@
 # Vizzuality components
 
-**DEPRECATED: This library is not longer maintained.
+**DEPRECATED: This library is not longer maintained.**
 
 Vizzuality components is a collection of React components that we use in our projects.
 
